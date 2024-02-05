@@ -12,6 +12,9 @@
   .bg-white{
     background-color:rgb(33,37,41) !important;
   }
+#iti-0__country-listbox {
+    background-color: #212529;
+}
 }
 .bg-body{
   background-color: var(--body-color) !important;
@@ -197,10 +200,13 @@ padding-left: 1.7rem;
 .iti input{
   height: calc(3.5rem + calc(var(--bs-border-width) * 2));
 }
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
-  color: var(--nav-active);
-  font-weight: 600;
-  border-bottom:3px solid var(--nav-active);
+#iti-0__country-listbox{
+    z-index:10!important;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: var(--nav-active);
+    font-weight: 600;
+    border-bottom: 3px solid var(--nav-active);
 }
 .left-0{
   left:0;

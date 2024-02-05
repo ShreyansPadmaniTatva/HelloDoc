@@ -1,8 +1,10 @@
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+//builder.Services.ConfigurePostgreSQL(Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -10,6 +12,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+//app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
