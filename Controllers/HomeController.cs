@@ -19,34 +19,11 @@ namespace HelloDoc.Controllers
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
      
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<emp_details>>> Index()
+     
+        public IActionResult Index()
         {
-            var products = new List<emp_details>();
-
-            using (var connection = new NpgsqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                using (var cmd = new NpgsqlCommand("SELECT * FROM emp_details", connection))
-                using (var reader = await cmd.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        var product = new emp_details
-                        {
-                            emp_id = reader.GetInt32(reader.GetOrdinal("emp_id")),
-                            emp_name = reader.GetString(reader.GetOrdinal("emp_name")),
-                            emp_designation = reader.GetString(reader.GetOrdinal("emp_designation")),
-                            emp_location = reader.GetString(reader.GetOrdinal("emp_location"))
-                            // Add other properties accordingly
-                        };
-                        products.Add(product);
-                    }
-                }
-            }
-
-            return View(products);
+            
+           return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

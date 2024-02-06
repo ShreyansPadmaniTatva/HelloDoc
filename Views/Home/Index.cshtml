@@ -1,4 +1,4 @@
-﻿@model IEnumerable<emp_details>
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -13,7 +13,7 @@
                 <img src="images/Fig56. Patient site 1.png" class="img-fluid" />
             </div>
             <div class="content m-5">
-                <a asp-action="Index" asp-controller="SubmitRequest" class="btn fs-3 py-2 w-100 btn-info text-white my-2">
+                <a asp-action="Index" asp-controller="Aspnetusers" class="btn fs-3 py-2 w-100 btn-info text-white my-2">
                     Submit A Request
                 </a>
                 <a asp-action="Index" asp-controller="Login" class="btn fs-3 py-2 w-100 btn-primary text-white my-2">
@@ -26,24 +26,5 @@
     </div>
 </div>
 
-    <h1>Product List</h1>
-    <table border="0">
-        <tr>
-            <th>Id</th>
-        <th>Name</th>
-        <th>Designation</th>
-        <th>Designation</th>
-            <!-- Add other columns as needed -->
-        </tr>
-        @foreach (var product in Model)
-        {
-            <tr >
-                <td>@product.emp_id</td>
-            <td>@product.emp_name</td>
-            <td>@product.emp_designation</td>
-            <td>@product.emp_location</td>
-                <!-- Add other columns as needed -->
-            </tr>
-        }
-    </table>
+
 

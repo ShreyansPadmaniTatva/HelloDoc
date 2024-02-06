@@ -1,3 +1,4 @@
+using HelloDoc.Data;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 //builder.Services.ConfigurePostgreSQL(Configuration);
+builder.Services.AddDbContext<ApplicationDbContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
