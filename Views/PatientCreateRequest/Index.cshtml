@@ -14,10 +14,7 @@
     <form asp-action="Create" asp-controller="PatientCreateRequest" class="row g-3 ">
 
         <h4 class=" my-4">Patient Information</h4>
-        <div class="col-md-6 form-floating  ">
-            <input asp-for="Id" class="form-control rounded" name="Id" type="text" placeholder="First Name" autocomplete=off>
-            <label class="" for="floatingInput">Id</label>
-        </div>
+        
         <div class="col-md-12 form-floating  my-1">
             <textarea asp-for="Symptoms" class="form-control rounded" name="Symptoms" type="text" rows="5" placeholder=Suchtext autocomplete=off></textarea>
             <label for="floatingInput">Symptoms </label>
@@ -45,11 +42,11 @@
             <!-- <label for="floatingInput">Phone Number </label> -->
         </div>
         <div class="col-md-6 form-floating  my-1">
-            <input asp-for="UserName" class="form-control rounded" name="UserName" type="text" placeholder=Suchtext autocomplete=off>
+            <input id="username" asp-for="UserName" class="form-control rounded" name="UserName" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">UserName </label>
         </div>
         <div class="col-md-6 form-floating  my-1">
-            <input asp-for="PassWord" class="form-control rounded" name="PassWord" type="text" placeholder=Suchtext autocomplete=off>
+            <input id="password" asp-for="PassWord" class="form-control rounded" name="PassWord" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">PassWord </label>
         </div>
 
@@ -90,3 +87,10 @@
 
     </form>
 </div>
+
+<script>
+    function myFunction() {
+        let x = document.getElementById("fname");
+        x.value = x.value.toUpperCase();
+    }
+</script>

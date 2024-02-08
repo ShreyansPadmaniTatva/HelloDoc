@@ -9,6 +9,7 @@ using System.Data;
 
 namespace HelloDoc.Controllers
 {
+    [CheckAccess]
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,8 +24,6 @@ namespace HelloDoc.Controllers
         public async Task<IActionResult> Index()
         {
             var s = _context.Requests.Where(b => b.Userid == Convert.ToInt32(CV.UserID())).ToList();
-
-
             return View(s);
         }
     }

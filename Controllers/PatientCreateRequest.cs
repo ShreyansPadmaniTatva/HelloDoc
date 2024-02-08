@@ -17,6 +17,11 @@ namespace HelloDoc.Controllers
             return View();
         }
 
+        public IActionResult Checkemail()
+        {
+            return Json();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ViewPatientCreateRequest viewpatientcreaterequest)
@@ -29,7 +34,7 @@ namespace HelloDoc.Controllers
             if (ModelState.IsValid)
             {
                 // Aspnetuser
-                Aspnetuser.Id =  viewpatientcreaterequest.Id;
+                Aspnetuser.Id = new Guid().ToString();
                 Aspnetuser.Username =  viewpatientcreaterequest.UserName;
                 Aspnetuser.Passwordhash =  viewpatientcreaterequest.PassWord;
                 Aspnetuser.CreatedDate = DateTime.Now;
