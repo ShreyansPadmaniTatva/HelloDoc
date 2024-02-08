@@ -8,5 +8,12 @@ namespace HelloDoc.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Post()
+        {
+
+            return View();
+        }
     }
 }

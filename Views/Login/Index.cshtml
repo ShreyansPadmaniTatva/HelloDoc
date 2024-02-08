@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model HelloDoc.Models.Aspnetuser
 @{
     ViewData["Title"] = "Login ";
 }
@@ -19,30 +20,29 @@
                 <div class="logo">
                     <img src="/images/Fig56. Patient site 1.png" class="img-fluid my-5 bg-white " />
                 </div>
+                @ViewData["error"];
                 <div class="content m-5">
                     <div class="d-flex justify-content-between">
                         <a asp-action="Index" asp-controller="Home" class="text-primary text-decoration-none py-2 fw-bolder">
                             ❮ &nbsp; Back
                         </a>
                     </div>
-                    <form>
+                    <form asp-action="CheckAccessLogin" asp-controller="Login">
                         <h1 class="login fs-1 fw-bolder">Login To Your Account</h1>
                         <div class="form-floating input-group with-icon mb-3">
-                            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext
+                            <input class="form-control rounded" asp-for="Username" type="text" placeholder=Suchtext
                                    autocomplete=off>
                             <i class="bi bi-person"></i>
                             <label for="floatingInput">Email </label>
                         </div>
                         <div class="form-floating input-group with-icon mb-3">
-                            <input class="form-control rounded" name="suche" type="password" placeholder=Suchtext
+                            <input class="form-control rounded" asp-for="Passwordhash" type="password" placeholder=Suchtext
                                    autocomplete=off>
                             <i class="bi bi-eye"></i>
                             <label for="floatingInput" class="bg-transparent">Password</label>
                         </div>
                         <div class="form-floating my-3">
-                            <button class="btn btn-info fs-4 text-white w-100">
-                                Submit
-                            </button>
+                            <input class="btn btn-info fs-4 text-white w-100" type="submit" value="Submit">
                         </div>
                     </form>
                     <a asp-action="ForgotPassword" asp-controller="Login" class="text-center  text-decoration-none text-primary">

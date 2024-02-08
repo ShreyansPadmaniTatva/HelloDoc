@@ -60,8 +60,9 @@ namespace HelloDoc.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(aspnetuser);
+                _context.Aspnetusers.Add(aspnetuser);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(aspnetuser);
