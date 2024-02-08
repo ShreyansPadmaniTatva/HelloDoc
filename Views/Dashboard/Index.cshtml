@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @model IEnumerable<HelloDoc.Models.Request>
@@ -14,7 +10,7 @@
     <div class="">
         <h3 class="fw-bolder">
             Medical History @userId
-            @*@HttpContext.Session.GetString("UserID");*@
+            
         </h3>
     </div>
 </div>
@@ -30,7 +26,7 @@
         <table class="table table-responsive mt-3 p-3">
             <thead>
                 <tr>
-                    <th scope="col ">Created Date <i class="bi bi-arrow-down"></i></th>
+                    <th scope="col">Created Date <i class="bi bi-arrow-down"></i></th>
                     <th scope="col">Current Status</th>
                     <th scope="col">Document</th>
                 </tr>
@@ -41,7 +37,9 @@
                     <tr>
                         <td scope="row"> @Html.DisplayFor(modelItem => item.Firstname)</td>
                         <td>Acceped</td>
-                        <td></td>
+                        <td>
+                           
+                        </td>
                     </tr>
                 }
                

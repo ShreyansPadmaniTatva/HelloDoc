@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Create Family / friend request";
 }
+@model HelloDoc.Models.ViewPatientFamilyFriend
 <partial name="../_Partial/_PartialConformationModel" />
 <div class="justify-content-between d-flex container-fluid my-5 position-relative ">
     <div class="">
@@ -15,87 +16,87 @@
     </div>
 </div>
 <div class="card border-0 shadow p-4 mb-5  rounded">
-    <form class="row g-3 ">
+    <form class="row g-3 " asp-action="Post" asp-controller="PatientFamilyFriend">
 
         <h4 class=" my-4">Family / Friend Information</h4>
 
         <div class="col-md-6 form-floating  ">
-            <input class="form-control rounded" name="suche" type="text" placeholder="First Name" autocomplete=off>
+            <input asp-for="FF_FirstName" class="form-control rounded" name="FF_FirstName" type="text" placeholder="First Name" autocomplete=off>
             <label class="" for="floatingInput">Your First Name </label>
         </div>
         <div class="col-md-6 form-floating">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="FF_LastName" class="form-control rounded" name="FF_LastName" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Your Last Name </label>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input id="phone" type="tel" name="phone" class="form-control rounded" placeholder="+91 9537290202" autocomplete=off>
+            <input asp-for="FF_PhoneNumber" id="phone" type="tel" name="FF_PhoneNumber" class="form-control rounded" placeholder="+91 9537290202" autocomplete=off>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input class="form-control rounded" name="suche" type="email" placeholder=Suchtext autocomplete=off>
+            <input asp-for="FF_Email" class="form-control rounded" name="suche" type="email" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Your Email </label>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input class="form-control rounded" name="suche" type="email" placeholder=Suchtext autocomplete=off>
+            <input asp-for="FF_RelationWithPatient" class="form-control rounded" name="FF_RelationWithPatient" type="email" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Relation with Patient</label>
         </div>
 
         <h4 class=" my-4 fw-bolder">Patient Information</h4>
         <div class="col-md-12 form-floating ">
-            <textarea class="form-control rounded" name="suche" type="text" rows="5" placeholder=Suchtext autocomplete=off></textarea>
+            <textarea asp-for="Symptoms" class="form-control rounded" name="Symptoms" type="text" rows="5" placeholder=Suchtext autocomplete=off></textarea>
             <label for="floatingInput">Symptoms </label>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input class="form-control rounded" name="suche" type="text" placeholder="First Name" autocomplete=off>
+            <input asp-for="FirstName" class="form-control rounded" name="FirstName" type="text" placeholder="First Name" autocomplete=off>
             <label class="" for="floatingInput">First Name </label>
         </div>
         <div class="col-md-6 form-floating">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="LastName" class="form-control rounded" name="LastName" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Last Name </label>
         </div>
         <div class="col-md-6 form-floating">
-            <input class="form-control rounded" name="suche" type="date" placeholder=Suchtext autocomplete=off>
+            <input asp-for="BirthDate" class="form-control rounded" name="BirthDate" type="date" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Birth Date </label>
         </div>
 
         <h4 class=" my-4 fw-bolder">Patient Contact Information</h4>
         <div class="col-md-6 form-floating  my-1">
-            <input class="form-control rounded" name="suche" type="email" placeholder=Suchtext autocomplete=off>
+            <input asp-for="Email" class="form-control rounded" name="Email" type="email" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Email </label>
         </div>
         <div class="col-md-6 form-floating  my-1">
-            <input id="phone" type="tel" name="phone" class="form-control rounded" placeholder="+91 9537290202" autocomplete=off>
+            <input asp-for="PhoneNumber" id="phone1" type="tel" name="PhoneNumber" class="form-control rounded" placeholder="+91 9537290202" autocomplete=off>
         </div>
 
         <h4 class=" my-4 fw-bolder">Patient Contact Information</h4>
         <div class="col-md-6 form-floating ">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="Street" class="form-control rounded" name="Street" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Street </label>
         </div>
         <div class="col-md-6 form-floating ">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="City" class="form-control rounded" name="City" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">City</label>
         </div>
         <div class="col-md-6 form-floating ">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="State" class="form-control rounded" name="State" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">State</label>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="ZipCode" class="form-control rounded" name="ZipCode" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Zip Code</label>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input class="form-control rounded" name="suche" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="RoomSite" class="form-control rounded" name="RoomSite" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Room / site ( Optional )</label>
         </div>
 
         <h4 class=" my-4">Upload Photo or Document ( Optional )</h4>
         <div class="col-md-12 form-floating  ">
             <div class="file-upload-wrapper border border-1" data-text="Select your file!">
-                <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                <input  name="file-upload-field" type="file" class="file-upload-field" value="">
             </div>
         </div>
         <div class="text-end">
-            <button class="btn btn-info text-white"> Submit </button>
+            <input type="submit" class="btn btn-info text-white" value="submit">
             <button class="btn btn-outline-info"> cancel </button>
         </div>
     </form>

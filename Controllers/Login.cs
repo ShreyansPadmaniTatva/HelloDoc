@@ -24,7 +24,7 @@ namespace HelloDoc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckAccessLoginAsync(Aspnetuser aspNetUser)
         {
-            var user = await _context.Aspnetusers.FirstOrDefaultAsync(u => u.Email == aspNetUser.Email && u.Passwordhash == aspNetUser.Passwordhash);
+            var user = await _context.Aspnetusers.FirstOrDefaultAsync(u => u.Username == aspNetUser.Username && u.Passwordhash == aspNetUser.Passwordhash);
 
             if (user == null)
             {

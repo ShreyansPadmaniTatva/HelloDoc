@@ -1,13 +1,17 @@
 ﻿namespace HelloDoc.Models
 {
-    public class ViewPatientCreateRequest
+    public class ViewPatientFamilyFriend
     {
-       
-        public string Symptoms { get; set; } 
+        public string FF_FirstName { get; set; }
+        public string FF_LastName { get; set; }
+        public string FF_PhoneNumber { get; set; }
+        public string FF_Email { get; set; }
+        public string FF_RelationWithPatient { get; set; }
+        public string Id { get; set; } = null!;
+        public string Symptoms { get; set; }
         public string FirstName { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string PassWord { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public string Email { get; set; }
@@ -17,8 +21,5 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string RoomSite { get; set; }
-        public string? UploadImage { get; set; }
-        public IFormFile? UploadFile { get; set; }
-
     }
 }
