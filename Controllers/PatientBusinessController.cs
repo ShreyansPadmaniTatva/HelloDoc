@@ -16,14 +16,12 @@ namespace HelloDoc.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Create(ViewPatientBusiness viewdata)
+        public async Task<IActionResult> Post(ViewPatientBusiness viewdata)
         {
             var Business = new Business();
-
             var Request = new Request();
             var Requestclient = new Requestclient();
             var Requestbusiness = new Requestbusiness();
-            Random _random = new Random();
 
             Business.Name = viewdata.BUP_FirstName + viewdata.BUP_LastName;
 

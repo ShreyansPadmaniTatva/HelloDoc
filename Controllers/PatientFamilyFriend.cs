@@ -48,7 +48,7 @@ namespace HelloDoc.Controllers
             await _context.SaveChangesAsync();
 
 
-            return View("../Dashboard/Dashboard");
+            return RedirectToAction("Index", "SubmitRequest");
 
         }
     }

@@ -179,7 +179,7 @@ namespace HelloDoc.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
             
-            return RedirectToAction("Index", "Aspnetusers");
+            return RedirectToAction("Index", "Login");
         }
     }
 }

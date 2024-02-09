@@ -17,14 +17,13 @@ namespace HelloDoc.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Create(ViewPatientConcierge viewdata)
+        public async Task<IActionResult> Post(ViewPatientConcierge viewdata)
         {
             var Concierge = new Concierge();
 
             var Request = new Request();
             var Requestclient = new Requestclient();
             var Requestconcierge = new Requestconcierge();
-            Random _random = new Random();
 
             Concierge.Conciergename = viewdata.CON_FirstName + viewdata.CON_LastName;
             Concierge.Street = viewdata.CON_Street;
