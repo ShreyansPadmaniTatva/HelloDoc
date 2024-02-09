@@ -66,7 +66,7 @@ namespace HelloDoc.Controllers
                 //var retive = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == Email);
                 //aspnetuser.Username = retive.Username;
                 //aspnetuser.CreatedDate = retive.CreatedDate;
-                aspnetuser.Passwordhash = RandomString(5);
+                aspnetuser.Passwordhash = RandomString(6);
                 aspnetuser.Modifieddate = DateTime.Now;
                 try
                 {
@@ -85,7 +85,7 @@ namespace HelloDoc.Controllers
                     }
                 }
                 ServicePointManager.ServerCertificateValidationCallback =
-    (sender, certificate, chain, sslPolicyErrors) => true;
+                (sender, certificate, chain, sslPolicyErrors) => true;
 
                 //send mail
                 MailMessage message = new MailMessage();
@@ -102,13 +102,13 @@ namespace HelloDoc.Controllers
 
                     smtpClient.Send(message);
                 }
+                ViewData["EmailCheck"] = "Your ID Pass Send In Your Mail";
             }
             else
             {
-
+                 ViewData["EmailCheck"] = "Your Email Is not registered";
+                return View("ForgotPassword");
             }
-            
-
             return View("Index");
         }
        
@@ -119,7 +119,7 @@ namespace HelloDoc.Controllers
             if (!string.IsNullOrEmpty(email) && Regex.IsMatch(email, pattern)) {
 
                 var U = await  _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == email);
-                if(U.Id != null)
+                if(U != null)
                 {
                     return true;
                 }
@@ -139,6 +139,11 @@ namespace HelloDoc.Controllers
         {
             return (_context.Aspnetusers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-    
-}
+        
+         public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "SubmitRequest");
+        }
+    }
 }

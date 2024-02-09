@@ -63,6 +63,7 @@ namespace HelloDoc.Controllers
                 Aspnetuser.Id = Guid.NewGuid().ToString();
                 Aspnetuser.Username =  viewpatientcreaterequest.UserName;
                 Aspnetuser.Passwordhash =  viewpatientcreaterequest.PassWord;
+                Aspnetuser.Email = viewpatientcreaterequest.Email;
                 Aspnetuser.CreatedDate = DateTime.Now;
                _context.Aspnetusers.Add(Aspnetuser);
                 await _context.SaveChangesAsync();

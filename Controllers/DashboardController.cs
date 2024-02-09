@@ -23,8 +23,50 @@ namespace HelloDoc.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var s = _context.Requests.Where(b => b.Userid == Convert.ToInt32(CV.UserID())).ToList();
-            return View(s);
+          
+                var Request = _context.Requests.Where(r => r.Userid == Convert.ToInt32(CV.UserID())).ToList();
+                List<int> ids = new List<int>();
+
+                foreach (var request in Request)
+                {
+
+                    var doc = _context.Requestwisefiles.Where(r => r.Requestid == request.Requestid).FirstOrDefault();
+                    if (doc != null)
+                    {
+                        ids.Add(request.Requestid);
+                    }
+                }
+                ViewBag.docidlist = ids;
+                ViewBag.listofrequest = Request;
+           
+
+
+            return View();
+        }
+        public IActionResult Indsex()
+        {
+            var UserIDForRequest = _context.Users.Where(r => r.Aspnetuserid == CV.UserID()).FirstOrDefault();
+
+            if (UserIDForRequest != null)
+            {
+                List<Models.Request> Request = _context.Requests.Where(r => r.Userid == UserIDForRequest.Userid).ToList();
+                List<int> ids = new List<int>();
+
+                foreach (var request in Request)
+                {
+
+                    var doc = _context.Requestwisefiles.Where(r => r.Requestid == request.Requestid).FirstOrDefault();
+                    if (doc != null)
+                    {
+                        ids.Add(request.Requestid);
+                    }
+                }
+                ViewBag.docidlist = ids;
+                ViewBag.listofrequest = Request;
+            }
+
+
+            return View("Dashboard");
         }
     }
 }
