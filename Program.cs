@@ -9,6 +9,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
+
+var emailConfig = builder.Configuration
+        .GetSection("EmailConfiguration")
+        .Get<EmailConfiguration>();
+
+builder.Services.AddSingleton(emailConfig);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

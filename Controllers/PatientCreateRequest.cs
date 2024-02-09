@@ -60,7 +60,7 @@ namespace HelloDoc.Controllers
             if (viewpatientcreaterequest.UserName != null  && viewpatientcreaterequest.PassWord != null)
             {
                 // Aspnetuser
-                Aspnetuser.Id = new Guid().ToString();
+                Aspnetuser.Id = Guid.NewGuid().ToString();
                 Aspnetuser.Username =  viewpatientcreaterequest.UserName;
                 Aspnetuser.Passwordhash =  viewpatientcreaterequest.PassWord;
                 Aspnetuser.CreatedDate = DateTime.Now;
