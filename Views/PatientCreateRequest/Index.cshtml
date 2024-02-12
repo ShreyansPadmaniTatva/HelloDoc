@@ -91,29 +91,13 @@
 @section Scripts
     {
     <script>
-        const phoneInputField = document.querySelector("#phone");
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            separateDialCode: true,
-            hiddenInput: "full",
-            preferredCountries: ["us", "co", "in", "de"],
-            utilsScript:
-                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
+     
     </script>
     <script type="text/javascript">
       
 
         $(function () {
-            $("form").submit(function () {
-                var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
-                $("input[name='PhoneNumber']").val(full_number);
-                console.log(phoneInput.getNumber(intlTelInputUtils.numberFormat.E164));
-                alert(full_number)
-
-            });
-            $("form").on("change", ".file-upload-field", function () {
-                $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
-            });
+           
             $("#email").focusout(function () {
                 var email = $("#email").val();
                 $.ajax({

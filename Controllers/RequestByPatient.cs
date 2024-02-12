@@ -78,7 +78,7 @@ namespace HelloDoc.Controllers
                 _context.SaveChanges();
             }
 
-            return View();
+            return RedirectToAction("Index", "Dashboard");
         }
         public async Task<IActionResult> PostSomeoneElseAsync(ViewPatientCreateRequest viewpatientrequestforme)
         {

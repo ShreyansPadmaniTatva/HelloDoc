@@ -75,7 +75,7 @@
                             <tr class="table-secondary">
                                 <th scope="col" class="table-text-header px-3">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value id="flexCheckDefault">
+                                        <input class="form-check-input" type="checkbox"  id="topflexCheckDefault">
                                     </div>
                                 </th>
                                 <th scope="col" class="table-text-header px-3"></th>
@@ -125,34 +125,13 @@
 @section Scripts
     {
         <script type="text/javascript" >
-            //$(function () {
-            //        $('#downloadAll').click(function () {
-            //            // Loop through each row in the table
-            //            $('tbody tr').each(function () {
-            //                // Get the download link for the current row
-            //                var downloadLink = $(this).find('.document-button').attr('href');
-
-            //                // Create a hidden link and trigger the download
-            //                var hiddenLink = document.createElement('a');
-            //                hiddenLink.href = downloadLink;
-            //                hiddenLink.target = '_blank';
-            //                hiddenLink.download = '';
-            //                document.body.appendChild(hiddenLink);
-            //                hiddenLink.click();
-            //                document.body.removeChild(hiddenLink);
-            //            });
-            //        });
-            //    });
+        
         $(function () {
             $('#downloadAll').click(function () {
-                // Loop through each row in the table
                 $('tbody tr').each(function () {
-                    // Check if the checkbox in the current row is checked
                     if ($(this).find('.form-check-input').prop('checked')) {
-                        // Get the download link for the current row
                         var downloadLink = $(this).find('.document-button').attr('href');
 
-                        // Create a hidden link and trigger the download
                         var hiddenLink = document.createElement('a');
                         hiddenLink.href = downloadLink;
                         hiddenLink.target = '_blank';

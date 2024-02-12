@@ -92,7 +92,7 @@ namespace HelloDoc.Controllers
                 message.From = new MailAddress(_emailConfig.From);
                 message.Subject = "Change PassWord";
                 message.To.Add(new MailAddress(Email));
-                message.Body = "<html><body>Your UserName <b>"+ aspnetuser.Passwordhash + "</b> <br/> Your PassWord <b>" + Email + "</b> </body></html>";
+                message.Body = "<html><body>Your UserName <b>"+ aspnetuser.Username + "</b> <br/> Your PassWord <b>" + aspnetuser.Passwordhash + "</b> </body></html>";
                 message.IsBodyHtml = true;
                 using (var smtpClient = new SmtpClient(_emailConfig.SmtpServer))
                 {

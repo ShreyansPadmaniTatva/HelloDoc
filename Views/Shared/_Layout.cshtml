@@ -19,7 +19,6 @@
                 </ul>
                 <div class=" top-0 end-0 my-4 mx-5 position-absolute text-info border-info rounded-3 d-flex">
                     <h5 class="text-dark align-bottom pt-2 ">
-                        @*collapse*@
                         Welcome <span class="fw-bolder"> @CV.UserName() </span>
                     </h5>
                     <a asp-action="LogOut" asp-controller="Login" class="btn btn-outline-info mx-2">Logout</a>
@@ -56,8 +55,10 @@
             </div>
         </div>
     </footer>
-    <script src="~/js/custom.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/custom.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

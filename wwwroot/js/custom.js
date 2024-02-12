@@ -12,10 +12,22 @@ function mode() {
 
 
 
-$(document).ready(function () {
-  $('#staticBackdrop').modal('show');
+const phoneInputField = document.querySelector("#phone");
+const phoneInput = window.intlTelInput(phoneInputField, {
+    separateDialCode: true,
+    hiddenInput: "full",
+    preferredCountries: ["us", "co", "in", "de"],
+    utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
 });
-
+const phoneInputField1 = document.querySelector("#phone1");
+const phoneInput1 = window.intlTelInput(phoneInputField1, {
+    separateDialCode: true,
+    hiddenInput: "full",
+    preferredCountries: ["us", "co", "in", "de"],
+    utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+});
 
 const x = document.getElementById("map");
 
@@ -33,3 +45,13 @@ function showPosition(position) {
   x.innerHTML = "Latitude: " + position.coords.latitude +
     "<br>Longitude: " + position.coords.longitude;
 }
+$(function () {
+    $("form").on("change", ".file-upload-field", function () {
+        $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
+    });
+    $("form").submit(function () {
+        var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='PhoneNumber']").val(full_number);
+
+    });
+});
