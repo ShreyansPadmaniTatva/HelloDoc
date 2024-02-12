@@ -23,5 +23,37 @@ namespace HelloDoc.Controllers
 
             return View();
         }
+        public IActionResult UploadDoc(int Requestid,IFormFile file)
+        {
+            string UploadDoc;
+            if (file != null)
+            {
+                string FilePath = "wwwroot\\Upload";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                string fileNameWithPath = Path.Combine(path, file.FileName);
+                UploadDoc = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + file.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                var requestwisefile = new Requestwisefile
+                {
+                    Requestid = Requestid,
+                    Filename = UploadDoc,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(requestwisefile);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index", new { id = Requestid } );
+        }
     }
+   
 }

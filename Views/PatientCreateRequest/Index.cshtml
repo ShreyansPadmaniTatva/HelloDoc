@@ -90,7 +90,6 @@
 
 @section Scripts
     {
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>*@
     <script>
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
@@ -105,7 +104,13 @@
       
 
         $(function () {
-          
+            $("form").submit(function () {
+                var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+                $("input[name='PhoneNumber']").val(full_number);
+                console.log(phoneInput.getNumber(intlTelInputUtils.numberFormat.E164));
+                alert(full_number)
+
+            });
             $("form").on("change", ".file-upload-field", function () {
                 $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
             });

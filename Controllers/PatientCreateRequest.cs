@@ -151,6 +151,8 @@ namespace HelloDoc.Controllers
 
                 _context.Requestclients.Add(Requestclient);
                 await _context.SaveChangesAsync();
+
+
                 if (viewpatientcreaterequest.UploadFile != null)
                 {
                     string FilePath = "wwwroot\\Upload";

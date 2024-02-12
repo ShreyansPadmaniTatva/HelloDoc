@@ -20,5 +20,7 @@
         public string? UploadImage { get; set; }
         public IFormFile? UploadFile { get; set; }
 
+
+        public string Realtion { get; set; }
     }
 }

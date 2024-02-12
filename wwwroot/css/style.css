@@ -72,8 +72,11 @@ body{
   background-color: transparent !important;
   left: 1px;
 }
-.form-control{
-  background-color: transparent !important;
+.form-floating > .form-control:disabled , .form-floating > :disabled {
+background-color: #e9ecef !important;
+}
+.form-control {
+    background-color: transparent !important;
 }
 .input-group-text{
   background-color: transparent !important;

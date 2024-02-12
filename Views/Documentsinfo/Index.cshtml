@@ -10,7 +10,7 @@
                 <h5 class="mt-2"> Document</h5>
             </div>
             <div class="text-end">
-                <a href="Fig64_Patient_Dashboard.html" class="btn btn-outline-info btn-back text-end">
+                <a asp-action="Index" asp-controller="Dashboard" class="btn btn-outline-info btn-back text-end">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                          class="bi bi-arrow-left-short" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -41,13 +41,15 @@
 
                 @foreach (var item in ViewBag.requestinfo)
                 {
-                    <form method="post" asp-action="UploadDoc" asp-controller="Dashboard" enctype="multipart/form-data">
+                    <form method="post" asp-action="UploadDoc" asp-controller="Documentsinfo" enctype="multipart/form-data">
                         
                         <div class="col-md-12 form-floating  ">
                             <div class="file-upload-wrapper border border-1" data-text="Select your file!">
-                            <input type="hidden" name="Requestid" value="@item.Requestid" />
-                                <input name="file-upload-field" type="file" class="file-upload-field" value="">
+                                     <input type="hidden" name="Requestid" value="@item.Requestid" />
+                                <input name="file" type="file" class="file-upload-field" value="">
+
                             </div>
+                                <input type="submit" value="submit" />
                             <!-- <input class="form-control rounded" name="suche" type="file" placeholder=Suchtext autocomplete=off> -->
                         </div>
                     </form>

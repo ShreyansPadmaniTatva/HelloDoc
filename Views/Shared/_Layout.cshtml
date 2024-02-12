@@ -29,6 +29,13 @@
                 </div>
             </div>
         </nav>
+        @{
+            if (CV.UserID() != null)
+            {
+                <partial name="../_Partial/_PartialSubNav" />
+            }
+        }
+       
     </header>
     <main role="main" class="pb-3 container min-vh-100">
             @RenderBody()

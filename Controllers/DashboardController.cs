@@ -13,12 +13,10 @@ namespace HelloDoc.Controllers
     public class DashboardController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly string _connectionString;
 
-        public DashboardController(ApplicationDbContext context, IConfiguration configuration)
+        public DashboardController(ApplicationDbContext context)
         {
             _context = context;
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public async Task<IActionResult> Index()
