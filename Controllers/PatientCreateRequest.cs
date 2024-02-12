@@ -61,7 +61,7 @@ namespace HelloDoc.Controllers
             {
                 // Aspnetuser
                 Aspnetuser.Id = Guid.NewGuid().ToString();
-                Aspnetuser.Username =  viewpatientcreaterequest.UserName;
+                Aspnetuser.Username = viewpatientcreaterequest.Email;
                 Aspnetuser.Passwordhash =  viewpatientcreaterequest.PassWord;
                 Aspnetuser.Email = viewpatientcreaterequest.Email;
                 Aspnetuser.CreatedDate = DateTime.Now;

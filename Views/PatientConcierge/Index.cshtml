@@ -28,7 +28,7 @@
             <label for="floatingInput">Your Last Name </label>
         </div>
         <div class="col-md-6 form-floating  ">
-            <input asp-for="CON_PhoneNumber" id="phone" type="tel" name="CON_PhoneNumber" class="form-control rounded" placeholder="+91 9537290202" autocomplete=off>
+            <input asp-for="CON_PhoneNumber" id="phone" type="tel" name="CON_PhoneNumber" class="form-control rounded" autocomplete=off>
         </div>
         <div class="col-md-6 form-floating  ">
             <input asp-for="CON_Email" class="form-control rounded" name="CON_Email" type="email" placeholder=Suchtext autocomplete=off>
@@ -83,7 +83,7 @@
             <label for="floatingInput">Email </label>
         </div>
         <div class="col-md-6 form-floating  my-1">
-            <input asp-for="PhoneNumber" id="phone" type="tel" name="PhoneNumber" class="form-control rounded" placeholder="+91 9537290202" autocomplete=off>
+            <input asp-for="PhoneNumber" id="phone1" type="tel" name="PhoneNumber" class="form-control rounded" autocomplete=off>
         </div>
 
         <h4 class=" my-4 fw-bolder">Patient Location</h4>
@@ -98,3 +98,24 @@
         </div>
     </form>
 </div>
+@section Scripts
+    {
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>*@
+    <script type="text/javascript">
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["us", "co", "in", "de"],
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+        const phoneInputField1 = document.querySelector("#phone1");
+        const phoneInput1 = window.intlTelInput(phoneInputField1, {
+            preferredCountries: ["us", "co", "in", "de"],
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+     
+
+    </script>
+}

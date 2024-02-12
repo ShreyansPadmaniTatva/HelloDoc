@@ -43,10 +43,7 @@
         </div>
         <input id="UserId" asp-for="UserId" class="form-control rounded " name="UserId" type="hidden" placeholder=Suchtext autocomplete=off>
             
-        <div id="username" class="col-md-6 form-floating  my-1" style="display:none">
-            <input  asp-for="UserName" class="form-control rounded " name="UserName" type="text" placeholder=Suchtext autocomplete=off>
-            <label for="floatingInput">UserName </label>
-        </div>
+        
         <div id="password" class="col-md-6 form-floating  my-1" style="display:none">
             <input  asp-for="PassWord" class="form-control rounded" name="PassWord" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">PassWord </label>
@@ -93,8 +90,25 @@
 
 @section Scripts
     {
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>*@
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            separateDialCode: true,
+            hiddenInput: "full",
+            preferredCountries: ["us", "co", "in", "de"],
+            utilsScript:
+                "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    </script>
     <script type="text/javascript">
+      
+
         $(function () {
+          
+            $("form").on("change", ".file-upload-field", function () {
+                $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
+            });
             $("#email").focusout(function () {
                 var email = $("#email").val();
                 $.ajax({
@@ -107,10 +121,8 @@
                         console.log(response);
                         if (flag) {
                             // Show the username and password fields
-                            $("#username").show();
                             $("#password").show();
                         } else {
-                            $("#username").hide();
                             $("#password").hide();
 
                              // Check if userId is defined
@@ -126,6 +138,6 @@
                 });
             });
         });
-
+     
     </script>
 }
