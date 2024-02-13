@@ -8,16 +8,22 @@ namespace HelloDoc.Controllers
 {
     public class PatientCreateRequest : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
         public PatientCreateRequest(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
 
+        #region CheckEmailAsync
         [HttpPost]
         public async Task<IActionResult> CheckEmailAsync(string email)
         {
@@ -33,7 +39,7 @@ namespace HelloDoc.Controllers
             }
             else
             {
-                 message = "success";
+                message = "success";
                 var user = await _context.Users.FirstOrDefaultAsync(m => m.Aspnetuserid == aspnetuser.Id.ToString());
                 HttpContext.Session.SetString("UserName", aspnetuser.Username.ToString());
                 HttpContext.Session.SetString("UserID", user.Userid.ToString());
@@ -45,17 +51,18 @@ namespace HelloDoc.Controllers
                 Message = message,
             });
         }
+        #endregion
 
+        #region Post
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ViewPatientCreateRequest viewpatientcreaterequest)
+        public async Task<IActionResult> Post(ViewPatientCreateRequest viewpatientcreaterequest)
         {
             var Aspnetuser = new Aspnetuser();
             var User = new User();
             var Request = new Request();
             var Requestclient = new Requestclient();
 
-           
 
             if (viewpatientcreaterequest.UserName != null  && viewpatientcreaterequest.PassWord != null)
             {
@@ -77,63 +84,8 @@ namespace HelloDoc.Controllers
                 _context.Users.Add(User);
                 await _context.SaveChangesAsync();
 
-                Request.Requesttypeid = 2;
-                Request.Userid = User.Userid;
-                Request.Firstname = viewpatientcreaterequest.FirstName;
-                Request.Lastname = viewpatientcreaterequest.LastName;
-                Request.Email = viewpatientcreaterequest.Email;
-                Request.Phonenumber = viewpatientcreaterequest.PhoneNumber;
-                Request.Isurgentemailsent = new BitArray(1);
-                Request.Createddate = DateTime.Now;
-                _context.Requests.Add(Request);
-                await _context.SaveChangesAsync();
-
-                Requestclient.Requestid = Request.Requestid;
-                Requestclient.Firstname = viewpatientcreaterequest.FirstName;
-                Requestclient.Address = viewpatientcreaterequest.Street;
-                Requestclient.Lastname = viewpatientcreaterequest.LastName;
-                Requestclient.Email = viewpatientcreaterequest.Email;
-                Requestclient.Phonenumber = viewpatientcreaterequest.PhoneNumber;
-                
-                _context.Requestclients.Add(Requestclient);
-                await _context.SaveChangesAsync();
-
-                if (viewpatientcreaterequest.UploadFile != null)
-                {
-                    string FilePath = "wwwroot\\Upload\\"+ Request.Requestid;
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
-
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    string newfilename = $"{Path.GetFileNameWithoutExtension(viewpatientcreaterequest.UploadFile.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(viewpatientcreaterequest.UploadFile.FileName).Trim('.')}";
-
-                    string fileNameWithPath = Path.Combine(path, newfilename);
-                    viewpatientcreaterequest.UploadImage = FilePath.Replace("wwwroot\\", "/") + "/" + newfilename;
-
-
-                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                    {
-                        viewpatientcreaterequest.UploadFile.CopyTo(stream);
-                    }
-
-                    var requestwisefile = new Requestwisefile
-                    {
-                        Requestid = Request.Requestid,
-                        Filename = viewpatientcreaterequest.UploadImage,
-                        Createddate = DateTime.Now,
-                    };
-                    _context.Requestwisefiles.Add(requestwisefile);
-                    _context.SaveChanges();
-                }
-
-
-                return RedirectToAction("Index", "Dashboard");
             }
-            else if (viewpatientcreaterequest.UserId != 0)
-            {
                
-
                 Request.Requesttypeid = 2;
                 Request.Userid = viewpatientcreaterequest.UserId;
                 Request.Firstname = viewpatientcreaterequest.FirstName;
@@ -185,9 +137,8 @@ namespace HelloDoc.Controllers
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Index", "Dashboard");
-            }
             
-            return RedirectToAction("Index", "Login");
         }
+        #endregion
     }
 }

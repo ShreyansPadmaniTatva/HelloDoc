@@ -7,15 +7,22 @@ namespace HelloDoc.Controllers
 {
     public class PatientBusinessController : Controller
     {
+        #region Configuration
         public ApplicationDbContext _context;
         public PatientBusinessController(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
+
+        #region Post
         public async Task<IActionResult> Post(ViewPatientBusiness viewdata)
         {
             var Business = new Business();
@@ -61,5 +68,6 @@ namespace HelloDoc.Controllers
             return RedirectToAction("Index", "SubmitRequest");
 
         }
+        #endregion
     }
 }

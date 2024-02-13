@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Forgot Password";
+    ViewData["Title"] = "Create Account";
 }
 <div class="text-center ">
     <div class="my-3 top-0 end-0 mt-3 mx-5 position-absolute border border-1 text-info border-info rounded-3">
@@ -22,15 +22,25 @@
                             ❮ &nbsp; Back
                         </a>
                     </div>
-                    @ViewData["EmailCheck"]
                     <form  asp-action="ResetEmail" asp-controller="Login">
-                        <h1 class="login fs-1 fw-bolder">Reset Your Password</h1>
+                        <h1 class="login fs-1 fw-bolder"> Create Account</h1>
                         <div class="form-floating input-group with-icon mb-3">
-                            <input class="form-control rounded" name="Email" type="email" placeholder=Suchtext autocomplete=off required>
+                            <input class="form-control rounded" name="Email" type="text" placeholder=Suchtext autocomplete=off>
                             <i class="bi bi-person"></i>
                             <label for="floatingInput">Email </label>
                         </div>
-
+                        <div class="form-floating input-group with-icon mb-3">
+                            <input class="form-control rounded"  type="password" placeholder=Suchtext
+                                   autocomplete=off>
+                            <i class="bi bi-eye"></i>
+                            <label for="floatingInput" class="bg-transparent">Password</label>
+                        </div>
+                        <div class="form-floating input-group with-icon mb-3">
+                            <input class="form-control rounded"  type="password" placeholder=Suchtext
+                                   autocomplete=off>
+                            <i class="bi bi-eye"></i>
+                            <label for="floatingInput" class="bg-transparent">Password Conformation</label>
+                        </div>
                         <div class="form-floating my-3">
                             <input type="submit" value="submit" class="btn btn-info fs-4 text-white w-100">
                             

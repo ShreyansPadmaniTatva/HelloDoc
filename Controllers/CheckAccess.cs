@@ -5,6 +5,7 @@ namespace HelloDoc.Controllers
 {
     public class CheckAccess : ActionFilterAttribute, IAuthorizationFilter
     {
+        #region CheckAccessOrNot
         public void OnAuthorization(AuthorizationFilterContext filterContext)
         {
             var rd = filterContext.RouteData;
@@ -17,6 +18,9 @@ namespace HelloDoc.Controllers
                 filterContext.Result = new RedirectResult("~/Login/");
             }
         }
+        #endregion
+
+        #region cache
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
@@ -25,5 +29,6 @@ namespace HelloDoc.Controllers
             filterContext.HttpContext.Response.Headers["Pragma"] = "no-cache";
             base.OnResultExecuting(filterContext);
         }
+        #endregion
     }
 }

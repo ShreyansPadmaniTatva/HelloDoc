@@ -7,12 +7,13 @@ namespace HelloDoc.Data
 
     public class EmailConfiguration
     {
-        
         public string From { get; set; }
         public string SmtpServer { get; set; }
         public int Port { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+
+        #region SendMail
         public Boolean SendMail(String To, String Subject, String Body)
         {
             ServicePointManager.ServerCertificateValidationCallback =
@@ -35,6 +36,7 @@ namespace HelloDoc.Data
             }
             return true;
         }
+        #endregion
     }
-   
+
 }

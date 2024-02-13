@@ -7,16 +7,23 @@ namespace HelloDoc.Controllers
 {
     public class PatientConcierge : Controller
     {
+        #region Configuration
         public ApplicationDbContext _context;
 
         public PatientConcierge(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
+
+        #region Post
         public async Task<IActionResult> Post(ViewPatientConcierge viewdata)
         {
             var Concierge = new Concierge();
@@ -67,5 +74,6 @@ namespace HelloDoc.Controllers
             return RedirectToAction("Index", "SubmitRequest");
 
         }
+        #endregion
     }
 }

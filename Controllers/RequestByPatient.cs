@@ -8,15 +8,22 @@ namespace HelloDoc.Controllers
 {
     public class RequestByPatient : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
         public RequestByPatient(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
+
+        #region SubmitForSomeoneElse
         public IActionResult SubmitForSomeoneElse()
         {
             return View();
@@ -25,6 +32,9 @@ namespace HelloDoc.Controllers
         {
             return View();
         }
+        #endregion
+
+        #region PostMeAsync
         public async Task<IActionResult> PostMeAsync(ViewPatientCreateRequest viewpatientrequestforme)
         {
             var Request = new Request();
@@ -80,6 +90,9 @@ namespace HelloDoc.Controllers
 
             return RedirectToAction("Index", "Dashboard");
         }
+        #endregion
+
+        #region PostSomeoneElseAsync
         public async Task<IActionResult> PostSomeoneElseAsync(ViewPatientCreateRequest viewpatientrequestforme)
         {
             var Request = new Request();
@@ -136,6 +149,6 @@ namespace HelloDoc.Controllers
 
             return View();
         }
-
+        #endregion
     }
 }

@@ -8,12 +8,16 @@ namespace HelloDoc.Controllers
     [CheckAccess]
     public class DocumentsinfoController : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
 
         public DocumentsinfoController(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index(int? id)
         {
             List<Requestclient> Request = _context.Requestclients.Where(r => r.Requestid == id).ToList();
@@ -23,6 +27,9 @@ namespace HelloDoc.Controllers
 
             return View();
         }
+        #endregion
+
+        #region UploadDoc_Files
         public IActionResult UploadDoc(int Requestid,IFormFile file)
         {
             string UploadDoc;
@@ -55,5 +62,6 @@ namespace HelloDoc.Controllers
 
             return RedirectToAction("Index", new { id = Requestid } );
         }
+        #endregion
     }
 }

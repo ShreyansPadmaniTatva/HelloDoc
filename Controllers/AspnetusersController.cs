@@ -12,6 +12,7 @@ namespace HelloDoc.Controllers
 {
     public class AspnetusersController : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
 
         public AspnetusersController(ApplicationDbContext context)
@@ -160,5 +161,6 @@ namespace HelloDoc.Controllers
         {
           return (_context.Aspnetusers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        #endregion
     }
 }

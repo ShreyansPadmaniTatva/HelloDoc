@@ -16,6 +16,7 @@ namespace HelloDoc.Controllers
 {
     public class Login : Controller
     {
+        #region Configuration
         private readonly EmailConfiguration _emailConfig;
         private readonly ApplicationDbContext _context;
         public Login(ApplicationDbContext context, EmailConfiguration emailConfig)
@@ -23,6 +24,9 @@ namespace HelloDoc.Controllers
             _context = context;
             _emailConfig = emailConfig;
         }
+        #endregion
+
+        #region Login
         public IActionResult Index()
         {
             return View();
@@ -50,12 +54,15 @@ namespace HelloDoc.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
 
+        #region Forgot_Password
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
+        #region SendMail
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetEmail(string Email)
@@ -102,8 +109,8 @@ namespace HelloDoc.Controllers
             }
             return View("Index");
         }
-       
-        public  async Task<bool> CheckregisterdAsync(string email)
+        #endregion
+        public async Task<bool> CheckregisterdAsync(string email)
         {
             string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 
@@ -126,15 +133,28 @@ namespace HelloDoc.Controllers
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
         private bool AspnetuserExists(string id)
         {
             return (_context.Aspnetusers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-        
-         public IActionResult LogOut()
+        #endregion
+
+        #region Logout
+        public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "SubmitRequest");
         }
+        #endregion
+
+        #region Create_Account
+
+        public IActionResult CreateAccount()
+        {
+            return View();
+        }
+
+        #endregion
     }
 }

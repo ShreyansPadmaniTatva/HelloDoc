@@ -12,6 +12,7 @@ namespace HelloDoc.Controllers
 {
     public class RequestsController : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
 
         public RequestsController(ApplicationDbContext context)
@@ -25,7 +26,9 @@ namespace HelloDoc.Controllers
             var applicationDbContext = _context.Requests.Include(r => r.Physician).Include(r => r.User);
             return View(await applicationDbContext.ToListAsync());
         }
+        #endregion
 
+        #region Details
         // GET: Requests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -45,7 +48,9 @@ namespace HelloDoc.Controllers
 
             return View(request);
         }
+        #endregion
 
+        #region Create
         // GET: Requests/Create
         public IActionResult Create()
         {
@@ -170,5 +175,6 @@ namespace HelloDoc.Controllers
         {
           return (_context.Requests?.Any(e => e.Requestid == id)).GetValueOrDefault();
         }
+        #endregion
     }
 }

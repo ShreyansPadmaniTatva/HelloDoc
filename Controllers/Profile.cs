@@ -9,17 +9,24 @@ namespace HelloDoc.Controllers
     [CheckAccess]
     public class Profile : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
 
         public Profile(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
             var UsersProfile = _context.Users.Where(r => r.Userid == Convert.ToInt32(CV.UserID())).FirstOrDefault();
             return View(UsersProfile);
         }
+        #endregion
+
+        #region Put
         public async Task<IActionResult> Put(User userprofile)
         {
             try
@@ -40,10 +47,10 @@ namespace HelloDoc.Controllers
             }
             return RedirectToAction("Index");
         }
-
         private bool UserExists(object id)
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

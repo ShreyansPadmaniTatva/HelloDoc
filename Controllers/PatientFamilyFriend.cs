@@ -8,17 +8,23 @@ namespace HelloDoc.Controllers
 {
     public class PatientFamilyFriend : Controller
     {
+        #region Configuration
         private readonly ApplicationDbContext _context;
 
         public PatientFamilyFriend(ApplicationDbContext context)
         {
             _context = context;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
             return View();
         }
+        #endregion
 
+        #region Post
         [HttpPost]
         public async Task<IActionResult> Post(ViewPatientFamilyFriend viewdata)
         {
@@ -51,5 +57,6 @@ namespace HelloDoc.Controllers
             return RedirectToAction("Index", "SubmitRequest");
 
         }
+        #endregion
     }
 }

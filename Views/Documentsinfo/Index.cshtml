@@ -4,7 +4,7 @@
 @{
 }
 <div class="container">
-    <div class="card bg-transparent border-0 p-2" style="border-radius: 15px;">
+    <div class="card bg-white border-0 p-2" style="border-radius: 15px;">
         <div class="card-header d-flex justify-content-between  border-0  bg-transparent p-1  mt-3 mb-2">
             <div class="text-start">
                 <h5 class="mt-2"> Document</h5>
@@ -21,14 +21,6 @@
         </div>
         <div class="card-body m-1 shadow" style="border-radius: 15px;">
             <div class="doc-text-card">Patient name</div>
-            <span class="d-flex align-items-center">
-                @foreach (var item in ViewBag.requestinfo)
-                {
-                    <div class="Patient-name">@item.Firstname @item.Lastname </div>
-                    <div class="doc-text-card mx-2 ">(@item.Requestid)</div>
-                }
-            </span>
-
             <div class="doc-text-card mt-2">
                 check here for any files that you or the
                 doctor of yours subsequents requestors have attached for yo to
@@ -81,8 +73,8 @@
                                 <th scope="col" class="table-text-header px-3"></th>
 
                                 <th scope="col" class="table-text-header  px-3">Uploder</th>
-                                <th scope="col" class="table-text-header   ">uplode date</th>
-                                <th scope="col" class="table-text-header   ">Action</th>
+                                <th scope="col" class="table-text-header ">uplode date</th>
+                                <th scope="col" class="table-text-header ">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,7 +88,7 @@
                                         </div>
                                     </td>
                                     <td class="table-text  px-3">@item2.Filename</td>
-                                    <td class="table-text  px-3">@item2.</td>
+                                    <td class="table-text  px-3">@item2.F</td>
                                     <td class="table-text  px-3">@item2.Createddate</td>
 
                                     <td class="table-text text-center ">
