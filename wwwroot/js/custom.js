@@ -9,7 +9,16 @@ function mode() {
     console.log(body.getAttribute('data-bs-theme'));
 }
 
+$(function () {
+    $("form").on("change", ".file-upload-field", function () {
+        $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
+    });
+    $("form").submit(function () {
+        var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
+        $("input[name='PhoneNumber']").val(full_number);
 
+    });
+});
 
 
 const phoneInputField = document.querySelector("#phone");
@@ -45,13 +54,3 @@ function showPosition(position) {
   x.innerHTML = "Latitude: " + position.coords.latitude +
     "<br>Longitude: " + position.coords.longitude;
 }
-$(function () {
-    $("form").on("change", ".file-upload-field", function () {
-        $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
-    });
-    $("form").submit(function () {
-        var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
-        $("input[name='PhoneNumber']").val(full_number);
-
-    });
-});

@@ -28,15 +28,16 @@ namespace HelloDoc.Controllers
             string UploadDoc;
             if (file != null)
             {
-                string FilePath = "wwwroot\\Upload";
+                string FilePath = "wwwroot\\Upload\\" + Requestid;
                 string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
 
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
 
-                string fileNameWithPath = Path.Combine(path, file.FileName);
-                UploadDoc = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + file.FileName;
+                string newfilename = $"{Path.GetFileNameWithoutExtension(file.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(file.FileName).Trim('.')}";
 
+                string fileNameWithPath = Path.Combine(path, newfilename);
+                UploadDoc = FilePath.Replace("wwwroot\\Upload\\", "/Upload/") + "/" + newfilename;
                 using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                 {
                     file.CopyTo(stream);
@@ -55,5 +56,4 @@ namespace HelloDoc.Controllers
             return RedirectToAction("Index", new { id = Requestid } );
         }
     }
-   
 }

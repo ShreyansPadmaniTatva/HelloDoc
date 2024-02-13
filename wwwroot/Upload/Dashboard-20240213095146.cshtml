@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_dashboardLayout.cshtml";
+}
+
+<nav class="container-fluid pt-2">
+    <div class="nav  nav-underline" id="nav-tab" role="tablist">
+        <button class="nav-link mx-2 active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+            Dashboard @ViewData["himanshu"]
+        </button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+                role="tab" aria-controls="nav-profile" aria-selected="false" tabindex="-1">
+            Profile
+        </button>
+
+    </div>
+</nav>
+<div class="tab-content mt-5 " id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="container-fluid mt-3">
+            <h4 class="px-3">Medical History</h4>
+            <div class="card m-2  bg-transparent border-0 p-2  ">
+
+                <div class="card-header-2 border-0 text-end  ">
+                    <button class="btn btn-sm btn-outline-info m-3 " type="button" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                        Create new Request
+                    </button>
+                </div>
+
+                <div class="card-body  shadow p-0">
+                    <div class="table-responsive ">
+                        <table class="table">
+                            <thead class="border-0">
+                                <tr class="table-secondary">
+
+                                    <th scope="col" class="table-text-header px-3">
+                                        Created
+                                        Date
+                                    </th>
+                                    <th scope="col" class="table-text-header  px-3">Current Status</th>
+                                    <th scope="col" class="table-text-header   text-center">Document</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.listofrequest)
+                                {
+                                    <tr>
+
+                                        <td class="table-text px-3">@item.Createddate</td>
+                                        <td class="table-text  px-3">@item.Status</td>
+                                        <td class="table-text text-center ">
+                                            @{
+                                                if (ViewBag.docidlist.Contains(item.Requestid))
+                                                {
+                                                    <a asp-action="Documentsinfo" asp-controller="Dashboard" asp-route-id="@item.Requestid"  class="btn btn-outline-info btn-sm document-button">
+                                                        Document
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                                             class="bi bi-arrow-down-circle mx-1" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z" />
+                                                        </svg>
+                                                    </a>
+                                                }
+                                            }
+                                                
+                                          
+                                           
+
+                                        </td>
+                                    </tr>
+                                }
+                             
+                               
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="tab-pane fade active show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    </div>
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Create New
+                    Request
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Here , i want to crate new request for....
+                <div class="text-center mt-3">
+                    <a asp-action="Index" asp-controller="PatientRequest" type="submit" class="btn btn-outline-info btn-submit">
+                        ME
+                    </a>
+                    <a asp-action="Index" asp-controller="FamilyFriendRequest"  class="btn btn-outline-info  btn-submit ">
+                        some one else
+                    </a>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-info  btn-submit" data-bs-dismiss="modal">Continue</button>
+                <button type="button" class="btn btn-outline-danger btn-cancel" data-bs-dismiss="modal"
+                        aria-label="Close">
+                    cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

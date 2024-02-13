@@ -100,14 +100,17 @@ namespace HelloDoc.Controllers
 
                 if (viewpatientcreaterequest.UploadFile != null)
                 {
-                    string FilePath = "wwwroot\\Upload";
+                    string FilePath = "wwwroot\\Upload\\"+ Request.Requestid;
                     string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
 
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
 
-                    string fileNameWithPath = Path.Combine(path, viewpatientcreaterequest.UploadFile.FileName);
-                    viewpatientcreaterequest.UploadImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + viewpatientcreaterequest.UploadFile.FileName;
+                    string newfilename = $"{Path.GetFileNameWithoutExtension(viewpatientcreaterequest.UploadFile.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(viewpatientcreaterequest.UploadFile.FileName).Trim('.')}";
+
+                    string fileNameWithPath = Path.Combine(path, newfilename);
+                    viewpatientcreaterequest.UploadImage = FilePath.Replace("wwwroot\\", "/") + "/" + newfilename;
+
 
                     using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                     {
@@ -155,14 +158,17 @@ namespace HelloDoc.Controllers
 
                 if (viewpatientcreaterequest.UploadFile != null)
                 {
-                    string FilePath = "wwwroot\\Upload";
+                    string FilePath = "wwwroot\\Upload\\" + Request.Requestid;
                     string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
 
                     if (!Directory.Exists(path))
                         Directory.CreateDirectory(path);
 
-                    string fileNameWithPath = Path.Combine(path, viewpatientcreaterequest.UploadFile.FileName);
-                    viewpatientcreaterequest.UploadImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + viewpatientcreaterequest.UploadFile.FileName;
+                    string newfilename = $"{Path.GetFileNameWithoutExtension(viewpatientcreaterequest.UploadFile.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(viewpatientcreaterequest.UploadFile.FileName).Trim('.')}";
+
+                    string fileNameWithPath = Path.Combine(path, newfilename);
+                    viewpatientcreaterequest.UploadImage =  FilePath.Replace("wwwroot\\Upload\\", "/Upload/")  + "/" + newfilename;
+
 
                     using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
                     {
@@ -178,7 +184,6 @@ namespace HelloDoc.Controllers
                     _context.Requestwisefiles.Add(requestwisefile);
                     _context.SaveChanges();
                 }
-
                 return RedirectToAction("Index", "Dashboard");
             }
             

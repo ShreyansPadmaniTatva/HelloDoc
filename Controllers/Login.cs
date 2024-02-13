@@ -10,6 +10,7 @@ using System.Data;
 using System.Net.Mail;
 using System.Net;
 using System.Text.RegularExpressions;
+using HelloDoc.Models.CV;
 
 namespace HelloDoc.Controllers
 {
@@ -84,24 +85,14 @@ namespace HelloDoc.Controllers
                         throw;
                     }
                 }
-                ServicePointManager.ServerCertificateValidationCallback =
-                (sender, certificate, chain, sslPolicyErrors) => true;
 
-                //send mail
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress(_emailConfig.From);
-                message.Subject = "Change PassWord";
-                message.To.Add(new MailAddress(Email));
-                message.Body = "<html><body>Your UserName <b>"+ aspnetuser.Username + "</b> <br/> Your PassWord <b>" + aspnetuser.Passwordhash + "</b> </body></html>";
-                message.IsBodyHtml = true;
-                using (var smtpClient = new SmtpClient(_emailConfig.SmtpServer))
-                {
-                    smtpClient.Port = _emailConfig.Port;
-                    smtpClient.Credentials = new NetworkCredential(_emailConfig.UserName, _emailConfig.Password);
-                    smtpClient.EnableSsl = true;
+                var Subject = "Change PassWord";
+                var Body = "<html><body>Your UserName <b>" + aspnetuser.Username + "</b> <br/> Your PassWord <b>" + aspnetuser.Passwordhash + "</b> </body></html>"; ;
 
-                    smtpClient.Send(message);
-                }
+               _emailConfig.SendMail(Email, Subject, Body);
+
+                
+
                 ViewData["EmailCheck"] = "Your ID Pass Send In Your Mail";
             }
             else
