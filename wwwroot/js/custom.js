@@ -13,14 +13,47 @@ $(function () {
     $("form").on("change", ".file-upload-field", function () {
         $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
     });
+    $("form").on("change", ".file-upload-field1", function () {
+        $(this).parent(".file-upload-wrapper").attr("data-text", $(this).val().replace(/.*(\/|\\)/, ''));
+    });
     $("form").submit(function () {
         var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);
         $("input[name='PhoneNumber']").val(full_number);
 
     });
+
 });
 
+$(document).on('click', '#fileupload', function (e) {
 
+        savealt()
+
+});
+
+function oops() {
+    Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!"
+    });
+}
+function savealt() {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+    Toast.fire({
+        icon: "success",
+        title: "Signed in successfully"
+    });
+}
 const phoneInputField = document.querySelector("#phone");
 const phoneInput = window.intlTelInput(phoneInputField, {
     separateDialCode: true,
