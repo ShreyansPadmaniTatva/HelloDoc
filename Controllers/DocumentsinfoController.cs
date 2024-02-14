@@ -1,5 +1,6 @@
 ﻿using HelloDoc.Data;
 using HelloDoc.Models;
+using HelloDoc.Models.CV;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,12 +21,20 @@ namespace HelloDoc.Controllers
         #region Index
         public IActionResult Index(int? id)
         {
-            List<Requestclient> Request = _context.Requestclients.Where(r => r.Requestid == id).ToList();
-            ViewBag.requestinfo = Request;
-            List<Requestwisefile> DocList = _context.Requestwisefiles.Where(r => r.Requestid == id).ToList();
-            ViewBag.DocList = DocList;
+            var result = _context.Requestwisefiles
+                        .Where(r => r.Requestid == id)
+                        .OrderByDescending(x => x.Createddate)
+                        .Select(r => new ViewPatientDashboard
+                        {
+                            Requestid = r.Requestid,
+                            Createddate = r.Createddate,
+                            Filename = r.Filename
 
-            return View();
+                        })
+                        .ToList();
+
+            
+            return View(result);
         }
         #endregion
 

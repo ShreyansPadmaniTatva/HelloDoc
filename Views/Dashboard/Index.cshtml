@@ -1,7 +1,7 @@
 ﻿
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-
+@model List<HelloDoc.Models.ViewPatientDashboard>
 @{
     var userId = HttpContextAccessor.HttpContext.Session.GetString("UserID");
 }
@@ -32,14 +32,14 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider mx-5">
-                @foreach (var item in ViewBag.listofrequest)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td scope="row"> @item.Createddate</td>
                         <td>@item.Status</td>
                         <td>
                             @{
-                                if (ViewBag.docidlist.Contains(item.Requestid))
+                                if (item.FileCount != 0)
                                 {
                                     <a asp-action="Index" asp-controller="Documentsinfo" asp-route-id="@item.Requestid" class="btn btn-outline-info btn-sm document-button">
                                         Document

@@ -3,6 +3,7 @@
 *@
 @{
 }
+@model List<HelloDoc.Models.ViewPatientDashboard>
 <div class="container">
     <div class="card bg-white border-0 p-2" style="border-radius: 15px;">
         <div class="card-header d-flex justify-content-between  border-0  bg-transparent p-1  mt-3 mb-2">
@@ -31,13 +32,12 @@
 
 
 
-                @foreach (var item in ViewBag.requestinfo)
-                {
+               
                     <form method="post" asp-action="UploadDoc" asp-controller="Documentsinfo" enctype="multipart/form-data">
                         
                         <div class="col-md-12 form-floating  ">
                             <div class="file-upload-wrapper border border-1" data-text="Select your file!">
-                                     <input type="hidden" name="Requestid" value="@item.Requestid" />
+                                     <input type="hidden" name="Requestid" value="@Model[0].Requestid" />
                                 <input name="file" type="file" class="file-upload-field" value="">
 
                             </div>
@@ -45,7 +45,7 @@
                             <!-- <input class="form-control rounded" name="suche" type="file" placeholder=Suchtext autocomplete=off> -->
                         </div>
                     </form>
-                }
+                
 
 
                 <div class="card-header-2 mt-3 d-flex justify-content-between  border-0  bg-transparent ">
@@ -75,17 +75,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item2 in ViewBag.DocList)
+                            @foreach (var item2 in Model)
                             {
                                 <tr>
-
                                     <td class="table-text px-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                         </div>
                                     </td>
                                     <td class="table-text  px-3">@item2.Filename</td>
-                                    <td class="table-text  px-3">@item2.F</td>
                                     <td class="table-text  px-3">@item2.Createddate</td>
 
                                     <td class="table-text text-center ">
@@ -100,8 +98,6 @@
                                     </td>
                                 </tr>
                             }
-
-
                         </tbody>
                     </table>
                 </div>

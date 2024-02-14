@@ -14,7 +14,7 @@ namespace HelloDoc.Models
         [EmailAddress(ErrorMessage = "Please Enter Valid Email Address!")]
         public string CON_Email { get; set; }
         public string? CON_PropertyName { get; set; }
-        public string Id { get; set; } = null!;
+        public string? Id { get; set; } = null!;
         [Required(ErrorMessage = "Symptoms Is Required!")]
         public string Symptoms { get; set; }
         [Required(ErrorMessage = "FirstName Is Required!")]

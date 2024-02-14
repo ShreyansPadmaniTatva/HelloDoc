@@ -32,6 +32,7 @@ namespace HelloDoc.Controllers
             return View();
         }
 
+        #region Start_session
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckAccessLoginAsync(Aspnetuser aspNetUser)
@@ -54,6 +55,8 @@ namespace HelloDoc.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        #endregion
+
         #endregion
 
         #region Forgot_Password
@@ -110,6 +113,8 @@ namespace HelloDoc.Controllers
             return View("Index");
         }
         #endregion
+
+        #region Help_functions
         public async Task<bool> CheckregisterdAsync(string email)
         {
             string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
@@ -138,6 +143,8 @@ namespace HelloDoc.Controllers
         {
             return (_context.Aspnetusers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        #endregion
+
         #endregion
 
         #region Logout
@@ -181,28 +188,18 @@ namespace HelloDoc.Controllers
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
 
+            var rc = _context.Requestclients.Where(e => e.Email == Email).ToList();
 
-
-
-            List<Requestclient> rc = new List<Requestclient>();
-            rc = _context.Requestclients.Where(e => e.Email == Email).ToList();
             foreach (var r in rc)
             {
-                NpgsqlConnection connection = new NpgsqlConnection("Server=localhost;Database=HalloDoc;User Id=postgres;Password=%^78TYui;Include Error Detail=True");
-                string Query = "Update request set userid=@UserID where requestid=@RequestID";
-                connection.Open();
-                NpgsqlCommand command = new NpgsqlCommand(Query, connection);
-                command.Parameters.AddWithValue("@userid", User.Userid);
-                command.Parameters.AddWithValue("@requestid", r.Requestid);
-                command.ExecuteNonQuery();
+                _context.Requests.Where(n => n.Requestid == r.Requestid)
+               .ExecuteUpdate(s => s.SetProperty(
+                   n => n.Userid,
+                   n => User.Userid));
             }
 
-
-
-
-            HttpContext.Session.SetString("UserName", aspnetuser.Username);
-            HttpContext.Session.SetString("UserID", aspnetuser.Id.ToString());
-
+            HttpContext.Session.SetString("UserName", aspnetuser.Username.ToString());
+            HttpContext.Session.SetString("UserID", User.Userid.ToString());
 
             return RedirectToAction("Index", "Dashboard");
         }

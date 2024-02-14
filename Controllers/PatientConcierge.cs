@@ -9,10 +9,11 @@ namespace HelloDoc.Controllers
     {
         #region Configuration
         public ApplicationDbContext _context;
-
-        public PatientConcierge(ApplicationDbContext context)
+        private readonly EmailConfiguration _emailConfig;
+        public PatientConcierge(ApplicationDbContext context, EmailConfiguration emailConfig)
         {
             _context = context;
+            _emailConfig = emailConfig;
         }
         #endregion
 
@@ -71,6 +72,9 @@ namespace HelloDoc.Controllers
 
             _context.Requestconcierges.Add(Requestconcierge);
             await _context.SaveChangesAsync();
+
+                _emailConfig.SendMail(viewdata.Email, "Your Request For patient Account is crearted please register with the link https://localhost:44376/Login/CreateAccount ", "New Patient Account Creation");
+
             }
 
             else
@@ -83,4 +87,4 @@ namespace HelloDoc.Controllers
         }
         #endregion
     }
-}
+}   
