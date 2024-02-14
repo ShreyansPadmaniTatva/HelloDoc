@@ -223,7 +223,11 @@ padding-left: 1.7rem;
 .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
   color: var(--white-color);
 }
-@media only  screen and (max-width: 767px) {
+.navbar-expand-lg .navbar-nav .nav-link:focus-within {
+    color: var(--nav-active);
+    font-weight: 600;
+    border-bottom: 3px solid var(--nav-active);
+}
 
-
+@media only screen and (max-width: 767px) {
 }

@@ -154,6 +154,59 @@ namespace HelloDoc.Controllers
         {
             return View();
         }
+        
+        public async Task<IActionResult> CreatNewAccont(string Email, string Password)
+        {
+            Guid id = Guid.NewGuid();
+            Aspnetuser aspnetuser = new Aspnetuser
+            {
+                Id = id.ToString(),
+                Email = Email,
+                Passwordhash = Password,
+                Username = Email
+            };
+            _context.Aspnetusers.Add(aspnetuser);
+            await _context.SaveChangesAsync();
+            var U = await _context.Requestclients.FirstOrDefaultAsync(m => m.Email == Email);
+            var User = new User
+            {
+                Aspnetuserid = aspnetuser.Id,
+                Firstname = U.Firstname,
+
+                Email = Email,
+                Createdby = aspnetuser.Id,
+                Createddate = DateTime.Now,
+
+            };
+            _context.Users.Add(User);
+            await _context.SaveChangesAsync();
+
+
+
+
+            List<Requestclient> rc = new List<Requestclient>();
+            rc = _context.Requestclients.Where(e => e.Email == Email).ToList();
+            foreach (var r in rc)
+            {
+                NpgsqlConnection connection = new NpgsqlConnection("Server=localhost;Database=HalloDoc;User Id=postgres;Password=%^78TYui;Include Error Detail=True");
+                string Query = "Update request set userid=@UserID where requestid=@RequestID";
+                connection.Open();
+                NpgsqlCommand command = new NpgsqlCommand(Query, connection);
+                command.Parameters.AddWithValue("@userid", User.Userid);
+                command.Parameters.AddWithValue("@requestid", r.Requestid);
+                command.ExecuteNonQuery();
+            }
+
+
+
+
+            HttpContext.Session.SetString("UserName", aspnetuser.Username);
+            HttpContext.Session.SetString("UserID", aspnetuser.Id.ToString());
+
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
 
         #endregion
     }

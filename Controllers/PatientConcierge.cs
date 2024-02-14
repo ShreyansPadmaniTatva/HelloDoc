@@ -26,7 +26,9 @@ namespace HelloDoc.Controllers
         #region Post
         public async Task<IActionResult> Post(ViewPatientConcierge viewdata)
         {
-            var Concierge = new Concierge();
+            if (ModelState.IsValid)
+            {
+                var Concierge = new Concierge();
 
             var Request = new Request();
             var Requestclient = new Requestclient();
@@ -69,7 +71,12 @@ namespace HelloDoc.Controllers
 
             _context.Requestconcierges.Add(Requestconcierge);
             await _context.SaveChangesAsync();
+            }
 
+            else
+            {
+                return View("../PatientConcierge/Index", viewdata);
+            }
 
             return RedirectToAction("Index", "SubmitRequest");
 

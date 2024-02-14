@@ -10,11 +10,11 @@ namespace HelloDoc.Models
         [MaxLength(12)]
         public string FirstName { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
-        public string PassWord { get; set; }
+        public string? PassWord { get; set; }
         [Required]
         public string LastName { get; set; }
         [Required]
@@ -42,6 +42,6 @@ namespace HelloDoc.Models
         public IFormFile? UploadFile { get; set; }
 
 
-        public string Realtion { get; set; }
+        public string? Realtion { get; set; }
     }
 }

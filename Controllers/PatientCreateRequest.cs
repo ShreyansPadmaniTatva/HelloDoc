@@ -58,34 +58,36 @@ namespace HelloDoc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post(ViewPatientCreateRequest viewpatientcreaterequest)
         {
-            var Aspnetuser = new Aspnetuser();
-            var User = new User();
-            var Request = new Request();
-            var Requestclient = new Requestclient();
-
-
-            if (viewpatientcreaterequest.UserName != null  && viewpatientcreaterequest.PassWord != null)
+            if (ModelState.IsValid)
             {
-                // Aspnetuser
-                Aspnetuser.Id = Guid.NewGuid().ToString();
-                Aspnetuser.Username = viewpatientcreaterequest.Email;
-                Aspnetuser.Passwordhash =  viewpatientcreaterequest.PassWord;
-                Aspnetuser.Email = viewpatientcreaterequest.Email;
-                Aspnetuser.CreatedDate = DateTime.Now;
-               _context.Aspnetusers.Add(Aspnetuser);
-                await _context.SaveChangesAsync();
+                var Aspnetuser = new Aspnetuser();
+                var User = new User();
+                var Request = new Request();
+                var Requestclient = new Requestclient();
 
-                User.Aspnetuserid = Aspnetuser.Id;
-                User.Firstname = viewpatientcreaterequest.FirstName;
-                User.Lastname = viewpatientcreaterequest.LastName;
-                User.Email = viewpatientcreaterequest.Email;
-                User.Createdby = Aspnetuser.Id;
-                User.Createddate = DateTime.Now;
-                _context.Users.Add(User);
-                await _context.SaveChangesAsync();
 
-            }
-               
+                if (viewpatientcreaterequest.UserName != null && viewpatientcreaterequest.PassWord != null)
+                {
+                    // Aspnetuser
+                    Aspnetuser.Id = Guid.NewGuid().ToString();
+                    Aspnetuser.Username = viewpatientcreaterequest.Email;
+                    Aspnetuser.Passwordhash = viewpatientcreaterequest.PassWord;
+                    Aspnetuser.Email = viewpatientcreaterequest.Email;
+                    Aspnetuser.CreatedDate = DateTime.Now;
+                    _context.Aspnetusers.Add(Aspnetuser);
+                    await _context.SaveChangesAsync();
+
+                    User.Aspnetuserid = Aspnetuser.Id;
+                    User.Firstname = viewpatientcreaterequest.FirstName;
+                    User.Lastname = viewpatientcreaterequest.LastName;
+                    User.Email = viewpatientcreaterequest.Email;
+                    User.Createdby = Aspnetuser.Id;
+                    User.Createddate = DateTime.Now;
+                    _context.Users.Add(User);
+                    await _context.SaveChangesAsync();
+
+                }
+
                 Request.Requesttypeid = 2;
                 Request.Userid = viewpatientcreaterequest.UserId;
                 Request.Firstname = viewpatientcreaterequest.FirstName;
@@ -119,7 +121,7 @@ namespace HelloDoc.Controllers
                     string newfilename = $"{Path.GetFileNameWithoutExtension(viewpatientcreaterequest.UploadFile.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(viewpatientcreaterequest.UploadFile.FileName).Trim('.')}";
 
                     string fileNameWithPath = Path.Combine(path, newfilename);
-                    viewpatientcreaterequest.UploadImage =  FilePath.Replace("wwwroot\\Upload\\", "/Upload/")  + "/" + newfilename;
+                    viewpatientcreaterequest.UploadImage = FilePath.Replace("wwwroot\\Upload\\", "/Upload/") + "/" + newfilename;
 
 
                     using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
@@ -136,6 +138,11 @@ namespace HelloDoc.Controllers
                     _context.Requestwisefiles.Add(requestwisefile);
                     _context.SaveChanges();
                 }
+            }
+            else
+            {
+                return View("../PatientCreateRequest/Index", viewpatientcreaterequest);
+            }
                 return RedirectToAction("Index", "Dashboard");
             
         }

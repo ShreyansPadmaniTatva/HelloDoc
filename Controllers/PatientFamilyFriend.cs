@@ -31,28 +31,33 @@ namespace HelloDoc.Controllers
 
             var Request = new Request();
             var Requestclient = new Requestclient();
+            if (ModelState.IsValid)
+            {
+                Request.Requesttypeid = 3;
+                Request.Status = 1;
+                Request.Firstname = viewdata.FirstName;
+                Request.Lastname = viewdata.LastName;
+                Request.Email = viewdata.Email;
+                Request.Phonenumber = viewdata.PhoneNumber;
+                Request.Isurgentemailsent = new BitArray(1);
+                Request.Createddate = DateTime.Now;
+                _context.Requests.Add(Request);
+                await _context.SaveChangesAsync();
 
-            Request.Requesttypeid = 3;
-            Request.Status = 1;
-            Request.Firstname = viewdata.FirstName;
-            Request.Lastname = viewdata.LastName;
-            Request.Email = viewdata.Email;
-            Request.Phonenumber = viewdata.PhoneNumber;
-            Request.Isurgentemailsent = new BitArray(1);
-            Request.Createddate = DateTime.Now;
-            _context.Requests.Add(Request);
-            await _context.SaveChangesAsync();
+                Requestclient.Requestid = Request.Requestid;
+                Requestclient.Firstname = viewdata.FirstName;
+                Requestclient.Address = viewdata.Street;
+                Requestclient.Lastname = viewdata.LastName;
+                Requestclient.Email = viewdata.Email;
+                Requestclient.Phonenumber = viewdata.PhoneNumber;
 
-            Requestclient.Requestid = Request.Requestid;
-            Requestclient.Firstname = viewdata.FirstName;
-            Requestclient.Address = viewdata.Street;
-            Requestclient.Lastname = viewdata.LastName;
-            Requestclient.Email = viewdata.Email;
-            Requestclient.Phonenumber = viewdata.PhoneNumber;
-
-            _context.Requestclients.Add(Requestclient);
-            await _context.SaveChangesAsync();
-
+                _context.Requestclients.Add(Requestclient);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                return View("../PatientFamilyFriend/Index", viewdata);
+            }
 
             return RedirectToAction("Index", "SubmitRequest");
 
