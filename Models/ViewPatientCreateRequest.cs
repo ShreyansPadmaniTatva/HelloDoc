@@ -42,5 +42,12 @@ namespace HelloDoc.Models
 
 
         public string? Realtion { get; set; }
+        public decimal? latitude { get; set; }
+        public decimal? longitude { get; set; }
+
+        // not mandatory
+        public int? date { get; set; }
+        public int? year { get; set; }
+        public string? month { get; set; }
     }
 }

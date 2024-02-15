@@ -4,7 +4,7 @@
 *@
 @{
 }
-@model HelloDoc.Models.User
+@model HelloDoc.Models.ViewUserProfile
 
 <div class="justify-content-between d-flex container-fluid my-5 position-relative ">
     <div class="">
@@ -31,7 +31,7 @@
             <label for="floatingInput">Last Name </label>
         </div>
         <div class="col-md-6 form-floating">
-            <input asp-for="Strmonth" class="form-control rounded" name="Birthdate" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="Birthdate" class="form-control rounded" name="Birthdate" type="date" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Birth Date </label>
         </div>
 

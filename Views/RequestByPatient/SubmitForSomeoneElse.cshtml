@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="card border-0 shadow p-4 mb-5  rounded">
-    <form asp-action="PostSomeoneElse" asp-controller="RequestByPatient" class="row g-3 ">
+    <form asp-action="PostSomeoneElse" asp-controller="RequestByPatient" class="row g-3 " enctype="multipart/form-data">
 
         <h4 class=" my-4">Patient Information</h4>
         <div class="col-md-12 form-floating  my-1">
@@ -79,6 +79,8 @@
                 <i class="bi bi-geo-alt"></i> Map
             </button>
             <p id="map"></p>
+            <input asp-for="latitude" id="latitude" type="hidden" />
+            <input asp-for="longitude" id="longitude" type="hidden" />
         </div>
         <h4 class=" my-4">Relation</h4>
         <div class="col-md-12 form-floating  ">

@@ -65,9 +65,6 @@ namespace HelloDoc.Controllers
                 var User = new User();
                 var Request = new Request();
                 var Requestclient = new Requestclient();
-                string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(viewpatientcreaterequest.BirthDate.Month);
-                int date = viewpatientcreaterequest.BirthDate.Day;
-                int year = viewpatientcreaterequest.BirthDate.Year;
 
                 if (viewpatientcreaterequest.UserName != null && viewpatientcreaterequest.PassWord != null)
                 {
@@ -86,9 +83,9 @@ namespace HelloDoc.Controllers
                     User.Email = viewpatientcreaterequest.Email;
                     User.Createdby = Aspnetuser.Id;
                     User.Createddate = DateTime.Now;
-                    User.Intdate = date;
-                    User.Intyear = year;
-                    User.Strmonth = monthName;
+                    User.Intdate = viewpatientcreaterequest.BirthDate.Day;
+                    User.Intyear = viewpatientcreaterequest.BirthDate.Year;
+                    User.Strmonth = viewpatientcreaterequest.BirthDate.Month.ToString();
                     _context.Users.Add(User);
                     await _context.SaveChangesAsync();
 

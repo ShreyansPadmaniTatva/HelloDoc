@@ -3,6 +3,8 @@ using HelloDoc.Models;
 using HelloDoc.Models.CV;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
+using System.Globalization;
+using System.Linq;
 
 namespace HelloDoc.Controllers
 {
@@ -26,11 +28,23 @@ namespace HelloDoc.Controllers
         #region SubmitForSomeoneElse
         public IActionResult SubmitForSomeoneElse()
         {
+           
             return View();
         }
         public IActionResult SubmitForMe()
         {
-            return View();
+            var ViewPatientCreateRequest = _context.Users
+                               .Where(r => r.Userid == Convert.ToInt32(CV.UserID()))
+                               .Select(r => new ViewPatientCreateRequest
+                               {
+                                   FirstName = r.Firstname,
+                                   LastName = r.Lastname,
+                                   Email = r.Email,
+                                   PhoneNumber = r.Mobile,
+                                   BirthDate = new DateTime((int)r.Intyear, Convert.ToInt32(r.Strmonth.Trim()), (int)r.Intdate),
+                               })
+                               .FirstOrDefault();
+            return View(ViewPatientCreateRequest);
         }
         #endregion
 
@@ -39,6 +53,7 @@ namespace HelloDoc.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 var Request = new Request();
                 var Requestclient = new Requestclient();
 
@@ -59,6 +74,8 @@ namespace HelloDoc.Controllers
                 Requestclient.Lastname = viewpatientrequestforme.LastName;
                 Requestclient.Email = viewpatientrequestforme.Email;
                 Requestclient.Phonenumber = viewpatientrequestforme.PhoneNumber;
+                Requestclient.Latitude = viewpatientrequestforme.latitude;
+                Requestclient.Longitude = viewpatientrequestforme.longitude;
 
                 _context.Requestclients.Add(Requestclient);
                 await _context.SaveChangesAsync();

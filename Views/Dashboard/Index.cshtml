@@ -91,22 +91,9 @@
     document.getElementById("continueButton").addEventListener("click", function () {
         var selectedOption = document.querySelector('input[name="options-outlined"]:checked').id;
         if (selectedOption === "success-outlined") {
-            // Call an action using AJAX
-            // Example:
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/YourController/YourAction",
-            //     data: yourData,
-            //     success: function(response) {
-            //         // Handle success response
-            //     },
-            //     error: function(xhr, status, error) {
-            //         // Handle error
-            //     }
-            // });
+           
             window.location.href = "/RequestByPatient/SubmitForMe";
         } else if (selectedOption === "danger-outlined") {
-            // Redirect to another view page
             window.location.href = "/RequestByPatient/SubmitForSomeoneElse";
         }
     });
