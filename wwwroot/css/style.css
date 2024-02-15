@@ -271,3 +271,63 @@ padding-left: 1.7rem;
     }
 @media only screen and (max-width: 767px) {
 }
+/*Dashboard CSS*/
+#responsiveTable th, #responsiveTable td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+@media (min-width: 600px) {
+    #create_new_req_icon {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    #responsiveTable thead, #responsiveTable tbody, #responsiveTable th, #responsiveTable td, #responsiveTable tr {
+        display: block;
+    }
+
+        #responsiveTable thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+    #responsiveTable tr {
+        border: 1px solid #ccc;
+        padding: 8px;
+        margin-bottom: 5px;
+    }
+
+    #responsiveTable td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        text-align: right;
+    }
+
+        #responsiveTable td:before {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            content: attr(data-label);
+            text-align: left;
+            font-weight: bold;
+        }
+
+    #create_new_req_text {
+        display: none;
+    }
+
+    #create_new_req {
+        height: 45px;
+        width: 45px;
+        padding: 0px !important;
+    }
+}
+

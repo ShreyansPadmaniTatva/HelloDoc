@@ -12,6 +12,11 @@ using System.Net;
 using System.Text.RegularExpressions;
 using HelloDoc.Models.CV;
 using System.Collections;
+using static System.Net.WebRequestMethods;
+using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Globalization;
+using System.Text;
 
 namespace HelloDoc.Controllers
 {
@@ -73,32 +78,8 @@ namespace HelloDoc.Controllers
         {
             if (await CheckregisterdAsync(Email))
             {
-                // create pass and storde pass
-                var aspnetuser = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == Email);
-                //var retive = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == Email);
-                //aspnetuser.Username = retive.Username;
-                //aspnetuser.CreatedDate = retive.CreatedDate;
-                aspnetuser.Passwordhash = RandomString(6);
-                aspnetuser.Modifieddate = DateTime.Now;
-                try
-                {
-                    _context.Update(aspnetuser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AspnetuserExists(aspnetuser.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
                 var Subject = "Change PassWord";
-                var Body = "<html><body>Your UserName <b>" + aspnetuser.Username + "</b> <br/> Your PassWord <b>" + aspnetuser.Passwordhash + "</b> </body></html>"; ;
+                var Body = "<html><body> your reset pas link is http://localhost:42161/Login/ResetPassWord?Datetime=" + _emailConfig.Encode(DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt")) +"&email="+ _emailConfig.Encode(Email)  + " </body></html>"; ;
 
                _emailConfig.SendMail(Email, Subject, Body);
 
@@ -156,13 +137,51 @@ namespace HelloDoc.Controllers
         }
         #endregion
 
+        public async Task<IActionResult> ResetPassWord(string? Datetime, string? email)
+        {
+            string Decodee = _emailConfig.Decode(email);
+            DateTime s = DateTime.ParseExact(_emailConfig.Decode(Datetime),"MM/dd/yyyy hh:mm:ss tt",CultureInfo.InvariantCulture);
+            TimeSpan dif =  s - DateTime.Now;
+            if (dif.Hours < 24)
+            {
+                ViewBag.email = Decodee;
+                return View();
+                 
+            }
+            else
+            {
+                ViewBag.TotalStudents = "Url is expaier";
+            }
+            return View();
+        }
+        public async Task<IActionResult> SavePassAsync(string Password,string Email)
+        {
+            if (Password != null)
+            {
+                try
+                {
+                    Aspnetuser U = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == Email);
+                    U.Passwordhash = Password;
+                    _context.Update(U);
+                    await _context.SaveChangesAsync();
+                    @ViewData["error"] = "Pass is Upadated";
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                      
+                }
+            }
+            return RedirectToAction("Index");
+        }
         #region Create_Account
 
         public IActionResult CreateAccount()
         {
+            
             return View();
         }
-        
+
+
         public async Task<IActionResult> CreatNewAccont(string Email, string Password)
         {
             Guid id = Guid.NewGuid();
@@ -180,7 +199,6 @@ namespace HelloDoc.Controllers
             {
                 Aspnetuserid = aspnetuser.Id,
                 Firstname = U.Firstname,
-
                 Email = Email,
                 Createdby = aspnetuser.Id,
                 Createddate = DateTime.Now,

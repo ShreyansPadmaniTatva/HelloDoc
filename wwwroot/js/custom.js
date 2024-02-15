@@ -24,11 +24,11 @@ $(function () {
 
 });
 
-$(document).on('click', '#fileupload', function (e) {
+//$(document).on('click', '#fileupload', function (e) {
 
-        savealt()
+//        savealt()
 
-});
+//});
 
 function oops() {
     Swal.fire({

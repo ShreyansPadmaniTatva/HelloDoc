@@ -29,11 +29,11 @@
             </div>
             <div class="col-md-12 mt-3">
 
-                    <form method="post" asp-action="UploadDoc" asp-controller="Documentsinfo" enctype="multipart/form-data">
+                <form method="post" id="myForm" asp-action="UploadDoc" asp-controller="Documentsinfo" enctype="multipart/form-data">
                         <div class="col-md-12 form-floating d-flex ">
                             <div class="file-upload-wrapper1 border border-1" data-text="Select your file!">
                                      <input type="hidden" name="Requestid" value="@Model[0].Requestid" />
-                                <input name="file" type="file" class="file-upload-field" value="">
+                                <input name="file" type="file" class="file-upload-field" id="file" value="">
 
                             </div>
                         <input type="submit" class="btn text-light btn-info rounded-right " id="fileupload" value="upload" />
@@ -105,10 +105,10 @@
 </div>
 @section Scripts
     {
-        <script type="text/javascript" >
-        
-        $(function () {
-            $('#downloadAll').click(function () {
+     <script type="text/javascript" >
+     
+     $(function () {
+         $('#downloadAll').click(function () {
                 $('tbody tr').each(function () {
                     if ($(this).find('.form-check-input').prop('checked')) {
                         var downloadLink = $(this).find('.document-button').attr('href');
@@ -123,18 +123,33 @@
                     }
                 });
             });
-            $('#topflexCheckDefault').change(function () {
+     
+         $('#topflexCheckDefault').change(function () {
                 $('.table tbody input[type="checkbox"]').prop('checked', $(this).is(':checked'));
             });
-
-            // Uncheck main checkbox in header when any checkbox in table body is unchecked
-            $('.table tbody input[type="checkbox"]').change(function () {
+     
+         // Uncheck main checkbox in header when any checkbox in table body is unchecked
+         $('.table tbody input[type="checkbox"]').change(function () {
                 if (!$(this).is(':checked')) {
                     $('#topflexCheckDefault').prop('checked', false);
                 }
             });
-        });
-
-   
-        </script>
+     
+         $("#fileupload").submit(function (e) {
+             e.preventDefault();
+             if ($('#file')[0].files[0] == undefined) {
+                 swal.fire({
+                     title: "Oops..",
+                     text: "Oops!☹️ Please Select One File ",
+                     icon: "error",
+                     showCancelButton: true,
+                     showConfirmButton: false,
+                     cancelButtonText: "Okay",
+                     cancelButtonColor: "#01BBE7",
+                 })
+                 return;
+             }
+         })
+     });
+     </script>
 }
