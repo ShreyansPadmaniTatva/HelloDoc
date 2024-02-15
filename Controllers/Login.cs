@@ -11,6 +11,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text.RegularExpressions;
 using HelloDoc.Models.CV;
+using System.Collections;
 
 namespace HelloDoc.Controllers
 {
@@ -183,6 +184,7 @@ namespace HelloDoc.Controllers
                 Email = Email,
                 Createdby = aspnetuser.Id,
                 Createddate = DateTime.Now,
+                Isrequestwithemail = new BitArray(1),
 
             };
             _context.Users.Add(User);

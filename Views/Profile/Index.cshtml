@@ -41,7 +41,7 @@
             <!-- <label for="floatingInput">Phone Number </label> -->
         </div>
         <div class="col-md-6 form-floating  my-1">
-            <input asp-for="Email" class="form-control rounded" name="Email" type="text" placeholder=Suchtext autocomplete=off>
+            <input asp-for="Email" class="form-control  rounded " id="email"  name="Email" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Email </label>
         </div>
        
@@ -59,10 +59,17 @@
             <input asp-for="State" class="form-control rounded" name="State" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">State</label>
         </div>
-        <div class="col-md-6 form-floating  ">
+        <div class="col-md-4 form-floating  ">
             <input asp-for="Zipcode" class="form-control rounded" name="Zipcode" type="text" placeholder=Suchtext autocomplete=off>
             <label for="floatingInput">Zip Code</label>
+        </div> 
+        <div class="col-md-2 form-floating  ">
+            <button type="button" class="btn btn-outline-info" onclick="getLocation()">
+                <i class="bi bi-geo-alt"></i> Map
+            </button>
+            <p id="demo"></p>
         </div>
+
         @foreach (var prop in Model.GetType().GetProperties())
         {
             @(Html.Hidden(prop.Name, prop.GetValue(Model, null)))
@@ -92,14 +99,13 @@
                 submit.style.display = "inline-block";
                 editprofile.style.display = "none";
             }
+            document.getElementById("email").disabled = (1 == 1);
         }
         window.onload = function (e) {
             toggleFormElements('true')
         }
     </script>
     <script type="text/javascript">
-
-
         $(function () {
             $("form").submit(function () {
                 var full_number = phoneInput.getNumber(intlTelInputUtils.numberFormat.E164);

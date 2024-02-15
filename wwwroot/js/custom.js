@@ -71,9 +71,10 @@ const phoneInput1 = window.intlTelInput(phoneInputField1, {
         "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
 });
 
-const x = document.getElementById("map");
 
 function getLocation() {
+    const x = document.getElementById("map");
+
   if (navigator.geolocation) {
     console.log(51);
     navigator.geolocation.watchPosition(showPosition);
@@ -84,6 +85,8 @@ function getLocation() {
 }
 
 function showPosition(position) {
+
+    const x = document.getElementById("map");
   x.innerHTML = "Latitude: " + position.coords.latitude +
     "<br>Longitude: " + position.coords.longitude;
 }

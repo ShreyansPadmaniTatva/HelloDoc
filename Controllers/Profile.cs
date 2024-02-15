@@ -3,6 +3,7 @@ using HelloDoc.Models;
 using HelloDoc.Models.CV;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace HelloDoc.Controllers
 {
@@ -31,6 +32,8 @@ namespace HelloDoc.Controllers
         {
             try
             {
+                userprofile.Modifiedby = userprofile.Createdby;
+                userprofile.Modifieddate = DateTime.Now;
                 _context.Update(userprofile);
                 await _context.SaveChangesAsync();
             }
