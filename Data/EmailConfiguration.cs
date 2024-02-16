@@ -37,6 +37,8 @@ namespace HelloDoc.Data
             return true;
         }
         #endregion
+
+        #region Encode_Decode
         public string Encode(string encodeMe)
         {
             byte[] encoded = System.Text.Encoding.UTF8.GetBytes(encodeMe);
@@ -47,6 +49,7 @@ namespace HelloDoc.Data
             byte[] encoded = Convert.FromBase64String(decodeMe);
             return System.Text.Encoding.UTF8.GetString(encoded);
         }
+        #endregion
     }
 
 }

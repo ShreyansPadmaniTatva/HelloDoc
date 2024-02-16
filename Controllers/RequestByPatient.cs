@@ -49,7 +49,7 @@ namespace HelloDoc.Controllers
         #endregion
 
         #region PostMeAsync
-        public async Task<IActionResult> PostMe(ViewPatientCreateRequest viewpatientrequestforme)
+        public async Task<IActionResult> PostMe(ViewPatientCreateRequest viewpatientcreaterequest)
         {
             if (ModelState.IsValid)
             {
@@ -59,64 +59,49 @@ namespace HelloDoc.Controllers
 
                 Request.Requesttypeid = 2;
                 Request.Userid = Convert.ToInt32(CV.UserID());
-                Request.Firstname = viewpatientrequestforme.FirstName;
-                Request.Lastname = viewpatientrequestforme.LastName;
-                Request.Email = viewpatientrequestforme.Email;
-                Request.Phonenumber = viewpatientrequestforme.PhoneNumber;
+                Request.Firstname = viewpatientcreaterequest.FirstName;
+                Request.Lastname = viewpatientcreaterequest.LastName;
+                Request.Email = viewpatientcreaterequest.Email;
+                Request.Phonenumber = viewpatientcreaterequest.PhoneNumber;
                 Request.Isurgentemailsent = new BitArray(1);
                 Request.Createddate = DateTime.Now;
                 _context.Requests.Add(Request);
                 await _context.SaveChangesAsync();
 
                 Requestclient.Requestid = Request.Requestid;
-                Requestclient.Firstname = viewpatientrequestforme.FirstName;
-                Requestclient.Address = viewpatientrequestforme.Street;
-                Requestclient.Lastname = viewpatientrequestforme.LastName;
-                Requestclient.Email = viewpatientrequestforme.Email;
-                Requestclient.Phonenumber = viewpatientrequestforme.PhoneNumber;
-                Requestclient.Latitude = viewpatientrequestforme.latitude;
-                Requestclient.Longitude = viewpatientrequestforme.longitude;
+                Requestclient.Firstname = viewpatientcreaterequest.FirstName;
+                Requestclient.Address = viewpatientcreaterequest.Street;
+                Requestclient.Lastname = viewpatientcreaterequest.LastName;
+                Requestclient.Email = viewpatientcreaterequest.Email;
+                Requestclient.Phonenumber = viewpatientcreaterequest.PhoneNumber;
+                Requestclient.Latitude = viewpatientcreaterequest.latitude;
+                Requestclient.Longitude = viewpatientcreaterequest.longitude;
 
                 _context.Requestclients.Add(Requestclient);
                 await _context.SaveChangesAsync();
 
+                viewpatientcreaterequest.UploadImage = _context.UploadDoc(viewpatientcreaterequest.UploadFile, Request.Requestid);
 
-                if (viewpatientrequestforme.UploadFile != null)
+                var requestwisefile = new Requestwisefile
                 {
-                    string FilePath = "wwwroot\\Upload";
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
-
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    string fileNameWithPath = Path.Combine(path, viewpatientrequestforme.UploadFile.FileName);
-                    viewpatientrequestforme.UploadImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + viewpatientrequestforme.UploadFile.FileName;
-
-                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                    {
-                        viewpatientrequestforme.UploadFile.CopyTo(stream);
-                    }
-
-                    var requestwisefile = new Requestwisefile
-                    {
-                        Requestid = Request.Requestid,
-                        Filename = viewpatientrequestforme.UploadImage,
-                        Createddate = DateTime.Now,
-                    };
-                    _context.Requestwisefiles.Add(requestwisefile);
-                    _context.SaveChanges();
-                }
+                    Requestid = Request.Requestid,
+                    Filename = viewpatientcreaterequest.UploadImage,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(requestwisefile);
+                _context.SaveChanges();
+                
             }
             else
             {
-                return View("../RequestByPatient/SubmitForMe", viewpatientrequestforme);
+                return View("../RequestByPatient/SubmitForMe", viewpatientcreaterequest);
             }
             return RedirectToAction("Index", "Dashboard");
         }
         #endregion
 
         #region PostSomeoneElseAsync
-        public async Task<IActionResult> PostSomeoneElse(ViewPatientCreateRequest viewpatientrequestforme)
+        public async Task<IActionResult> PostSomeoneElse(ViewPatientCreateRequest viewpatientcreaterequest)
         {
             if (ModelState.IsValid)
             {
@@ -125,58 +110,42 @@ namespace HelloDoc.Controllers
 
                 Request.Requesttypeid = 2;
                 Request.Userid = Convert.ToInt32(CV.UserID());
-                Request.Firstname = viewpatientrequestforme.FirstName;
-                Request.Lastname = viewpatientrequestforme.LastName;
-                Request.Email = viewpatientrequestforme.Email;
-                Request.Phonenumber = viewpatientrequestforme.PhoneNumber;
-                Request.Relationname = viewpatientrequestforme.Realtion;
+                Request.Firstname = viewpatientcreaterequest.FirstName;
+                Request.Lastname = viewpatientcreaterequest.LastName;
+                Request.Email = viewpatientcreaterequest.Email;
+                Request.Phonenumber = viewpatientcreaterequest.PhoneNumber;
+                Request.Relationname = viewpatientcreaterequest.Realtion;
                 Request.Isurgentemailsent = new BitArray(1);
                 Request.Createddate = DateTime.Now;
                 _context.Requests.Add(Request);
                 await _context.SaveChangesAsync();
 
                 Requestclient.Requestid = Request.Requestid;
-                Requestclient.Firstname = viewpatientrequestforme.FirstName;
-                Requestclient.Address = viewpatientrequestforme.Street;
-                Requestclient.Lastname = viewpatientrequestforme.LastName;
-                Requestclient.Email = viewpatientrequestforme.Email;
-                Requestclient.Phonenumber = viewpatientrequestforme.PhoneNumber;
+                Requestclient.Firstname = viewpatientcreaterequest.FirstName;
+                Requestclient.Address = viewpatientcreaterequest.Street;
+                Requestclient.Lastname = viewpatientcreaterequest.LastName;
+                Requestclient.Email = viewpatientcreaterequest.Email;
+                Requestclient.Phonenumber = viewpatientcreaterequest.PhoneNumber;
 
                 _context.Requestclients.Add(Requestclient);
                 await _context.SaveChangesAsync();
 
+                viewpatientcreaterequest.UploadImage = _context.UploadDoc(viewpatientcreaterequest.UploadFile, Request.Requestid);
 
-                if (viewpatientrequestforme.UploadFile != null)
+                var requestwisefile = new Requestwisefile
                 {
-                    string FilePath = "wwwroot\\Upload";
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
-
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    string fileNameWithPath = Path.Combine(path, viewpatientrequestforme.UploadFile.FileName);
-                    viewpatientrequestforme.UploadImage = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + viewpatientrequestforme.UploadFile.FileName;
-
-                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                    {
-                        viewpatientrequestforme.UploadFile.CopyTo(stream);
-                    }
-
-                    var requestwisefile = new Requestwisefile
-                    {
-                        Requestid = Request.Requestid,
-                        Filename = viewpatientrequestforme.UploadImage,
-                        Createddate = DateTime.Now,
-                    };
-                    _context.Requestwisefiles.Add(requestwisefile);
-                    _context.SaveChanges();
-                }
+                    Requestid = Request.Requestid,
+                    Filename = viewpatientcreaterequest.UploadImage,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(requestwisefile);
+                _context.SaveChanges();
             }
             else
             {
-                return View("../RequestByPatient/SubmitForSomeoneElse", viewpatientrequestforme);
+                return View("../RequestByPatient/SubmitForSomeoneElse", viewpatientcreaterequest);
             }
-            return View();
+            return View("../Dashboard/Index");
         }
         #endregion
     }

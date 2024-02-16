@@ -113,26 +113,9 @@ namespace HelloDoc.Controllers
                 await _context.SaveChangesAsync();
 
 
-                if (viewpatientcreaterequest.UploadFile != null)
-                {
-                    string FilePath = "wwwroot\\Upload\\" + Request.Requestid;
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+                viewpatientcreaterequest.UploadImage = _context.UploadDoc(viewpatientcreaterequest.UploadFile, Request.Requestid);
 
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    string newfilename = $"{Path.GetFileNameWithoutExtension(viewpatientcreaterequest.UploadFile.FileName)}-{DateTime.Now.ToString("yyyyMMddhhmmss")}.{Path.GetExtension(viewpatientcreaterequest.UploadFile.FileName).Trim('.')}";
-
-                    string fileNameWithPath = Path.Combine(path, newfilename);
-                    viewpatientcreaterequest.UploadImage = FilePath.Replace("wwwroot\\Upload\\", "/Upload/") + "/" + newfilename;
-
-
-                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                    {
-                        viewpatientcreaterequest.UploadFile.CopyTo(stream);
-                    }
-
-                    var requestwisefile = new Requestwisefile
+                var requestwisefile = new Requestwisefile
                     {
                         Requestid = Request.Requestid,
                         Filename = viewpatientcreaterequest.UploadImage,
@@ -140,7 +123,7 @@ namespace HelloDoc.Controllers
                     };
                     _context.Requestwisefiles.Add(requestwisefile);
                     _context.SaveChanges();
-                }
+                
             }
             else
             {

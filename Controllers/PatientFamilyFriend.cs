@@ -53,6 +53,17 @@ namespace HelloDoc.Controllers
 
                 _context.Requestclients.Add(Requestclient);
                 await _context.SaveChangesAsync();
+
+                viewdata.UploadImage = _context.UploadDoc(viewdata.UploadFile, Request.Requestid);
+
+                var requestwisefile = new Requestwisefile
+                {
+                    Requestid = Request.Requestid,
+                    Filename = viewdata.UploadImage,
+                    Createddate = DateTime.Now,
+                };
+                _context.Requestwisefiles.Add(requestwisefile);
+                _context.SaveChanges();
             }
             else
             {

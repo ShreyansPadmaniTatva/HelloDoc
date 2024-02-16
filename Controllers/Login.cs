@@ -17,6 +17,9 @@ using System;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.SqlServer.Server;
+using Microsoft.CodeAnalysis.Scripting;
 
 namespace HelloDoc.Controllers
 {
@@ -43,22 +46,26 @@ namespace HelloDoc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckAccessLoginAsync(Aspnetuser aspNetUser)
         {
-            var user = await _context.Aspnetusers.FirstOrDefaultAsync(u => u.Username == aspNetUser.Username && u.Passwordhash == aspNetUser.Passwordhash);
-
-            if (user == null)
+            var user = await _context.Aspnetusers.FirstOrDefaultAsync(u => u.Username == aspNetUser.Username);
+            if (user != null)
             {
-                ViewData["error"] = "Invalid Id Pass";
-                return View("Index");
+                var hasher = new PasswordHasher<string>();
+                PasswordVerificationResult result = hasher.VerifyHashedPassword(null, user.Passwordhash,aspNetUser.Passwordhash );
+                if (result != PasswordVerificationResult.Success)
+                {
+                    ViewData["error"] = "Invalid Id Pass";
+                    return View("Index");
+                }
+                else
+                {
+                    HttpContext.Session.SetString("UserName", user.Username.ToString());
+                    var U = await _context.Users.FirstOrDefaultAsync(m => m.Aspnetuserid == user.Id.ToString());
+                    HttpContext.Session.SetString("UserID", U.Userid.ToString());
+                    return RedirectToAction("Index", "Dashboard");
+                }
             }
-            else
-            {
-                HttpContext.Session.SetString("UserName", user.Username.ToString());
-                var U = await _context.Users.FirstOrDefaultAsync(m => m.Aspnetuserid == user.Id.ToString());
-                HttpContext.Session.SetString("UserID", U.Userid.ToString());
-                return RedirectToAction("Index", "Dashboard");
-            }
+           
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         #endregion
@@ -137,6 +144,8 @@ namespace HelloDoc.Controllers
         }
         #endregion
 
+        #region Reset_Password
+         #region ResetPassWord
         public async Task<IActionResult> ResetPassWord(string? Datetime, string? email)
         {
             string Decodee = _emailConfig.Decode(email);
@@ -154,25 +163,37 @@ namespace HelloDoc.Controllers
             }
             return View();
         }
-        public async Task<IActionResult> SavePassAsync(string Password,string Email)
+        #endregion
+
+         #region ResetPassWord_SavePassAsync
+        public async Task<IActionResult> SavePassAsync(string ConfirmPassword, string Password,string Email)
         {
             if (Password != null)
             {
+                if (ConfirmPassword != Password)
+                {
+                    ViewData["error"] = "Pass is Mismatch";
+                    return View("ResetPassWord");
+                }
                 try
                 {
                     Aspnetuser U = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == Email);
-                    U.Passwordhash = Password;
+                    var hasher = new PasswordHasher<string>();
+                    U.Passwordhash = hasher.HashPassword(null, Password); ;
                     _context.Update(U);
                     await _context.SaveChangesAsync();
-                    @ViewData["error"] = "Pass is Upadated";
+                    ViewData["error"] = "Pass is Upadated";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                       
                 }
             }
-            return RedirectToAction("Index");
+            return View("Index");
         }
+        #endregion
+        #endregion
+
         #region Create_Account
 
         public IActionResult CreateAccount()
